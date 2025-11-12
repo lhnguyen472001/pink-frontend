@@ -1,27 +1,27 @@
-"use client";
-import Link from "next/link";
-import { ModeToggle } from "./mode-toggle";
+'use client'
+import React from 'react'
+import logo from '@public/home/3.png'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
-export default function Header() {
-	const links = [{ to: "/", label: "Home" }] as const;
+type Props = {}
 
-	return (
-		<div>
-			<div className="flex flex-row items-center justify-between px-2 py-1">
-				<nav className="flex gap-4 text-lg">
-					{links.map(({ to, label }) => {
-						return (
-							<Link key={to} href={to}>
-								{label}
-							</Link>
-						);
-					})}
-				</nav>
-				<div className="flex items-center gap-2">
-					<ModeToggle />
-				</div>
-			</div>
-			<hr />
-		</div>
-	);
+const Header = (props: Props) => {
+    const pathName = usePathname()
+    const listTab = [{ title: "Home", value: "/" }, { title: "Service", value: "/service" },{ title: "About Us", value: "/about-us" }]
+    return (
+        <div className='h-14 justify-between flex items-center gap-3 max-w-5xl mx-auto w-full px-4'>
+            <Link href={"/"}>
+                <Image src={logo} alt='logo' width={500} height={500} className='w-12 aspect-auto' />
+            </Link>
+            <div className='flex items-center justify-between gap-3'>
+                {listTab.map((val, index) => (
+                    <Link href={val.value} key={index} className={`${pathName == val.value ? "font-bold" : "font-normal"}`}>{val.title}</Link>
+                ))}
+            </div>
+        </div>
+    )
 }
+
+export default Header
