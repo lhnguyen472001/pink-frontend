@@ -173,9 +173,10 @@ export default function Home() {
           </div>
         </div>
       </Section>
-<div>
-  
-</div>
+      <div className='flex items-center justify-center'>
+        <Image src={image2} alt='image' className=' object-contain aspect-video' width={400} height={300} />
+        <Image src={image1} alt='image' className='aspect-video object-contain' width={400} height={400} />
+      </div>
       {/* Stats Section */}
       <Section>
         <div className={cn(
