@@ -184,19 +184,23 @@ export const componentPresets = {
       "hover:-translate-y-1",
       designTokens.transitions.base
     ),
-    colored: (color: "primary" | "secondary" | "accent") => {
+    colored: (color: "primary" | "secondary" | "accent" | "pink") => {
       const colorMap = {
         primary: "bg-primary-50",
         secondary: "bg-gray-100",
+        pink: "bg-[#FBE7E7]",
         accent: "bg-accent-lightPink",
       };
-      return cn(colorMap[color], designTokens.rounded.lg, "border-none");
+      return cn(colorMap[color], "border-none");
     },
   },
 
   section: {
     base: cn(designTokens.spacing.section.md),
-    hero: cn(designTokens.spacing.section.lg, designTokens.gradients.primarySubtle),
+    hero: cn(
+      designTokens.spacing.section.lg,
+      designTokens.gradients.primarySubtle
+    ),
     colored: (color: "primary" | "secondary" | "neutral") => {
       const colorMap = {
         primary: "bg-primary-50",

@@ -1,4 +1,4 @@
-// app/page.tsx
+'use client'
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { generateSEO, JsonLd, organizationSchema, generateBreadcrumbSchema } from '@/lib/seo';
@@ -9,14 +9,17 @@ import { cn, designTokens, componentPresets } from '@/lib/design-tokens';
 
 import section1 from '@public/home/section1.jpg';
 import icon1 from '@public/home/time.svg';
-import image1 from "@public/home/image1.jpg"
-import image2 from "@public/home/image2.jpg"
+import image1 from "@public/home/image1.png"
+import image2 from "@public/home/image2.png"
 import icon2 from '@public/home/kn.svg';
 import icon3 from '@public/home/mess.svg';
 import icon4 from '@public/home/global.svg';
 import imgDefault from '@public/home/test.jpg';
 import SectionHeader from '@/components/SectionHeader';
 import type { Metadata } from 'next';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
+import { useEffect, useState } from 'react';
+import { Check, X } from 'lucide-react';
 
 // Dynamic imports for performance
 const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), {
@@ -25,19 +28,21 @@ const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), 
 
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'));
 
-export const metadata: Metadata = generateSEO({
-  title: 'Comprehensive Accounting & Financial Advisory Services | Pink Accounting',
-  description: 'Pink Accounting provides comprehensive accounting, bookkeeping, cash flow management, and strategic advisory solutions for SMEs. Contact us now to build a robust financial system.',
-  url: '/',
-});
 
 const STATS = [
+  {
+    title: '98% Retention Since 2020',
+    description: 'Clients rave about our dedication (see their stories below).',
+    icon: image2,
+    alt: 'Client retention icon'
+  },
   {
     title: '98% Retention Since 2020',
     description: 'Clients rave about our dedication (see their stories below).',
     icon: icon1,
     alt: 'Client retention icon'
   },
+
   {
     title: '15+ Years Expertise',
     description: 'Led by Pinky Bui (Master of Professional Accounting, MIPA), blending local SEQ knowledge with global standards.',
@@ -56,6 +61,12 @@ const STATS = [
     icon: icon4,
     alt: 'Team power icon'
   },
+  {
+    title: '98% Retention Since 2020',
+    description: 'Clients rave about our dedication (see their stories below).',
+    icon: image1,
+    alt: 'Client retention icon'
+  },
 ];
 
 const VALUE_PROPOSITIONS = [
@@ -67,7 +78,7 @@ const VALUE_PROPOSITIONS = [
     alt: 'Time management illustration'
   },
   {
-    color: 'secondary' as const,
+    color: 'pink' as const,
     img: "https://images.pexels.com/photos/6694492/pexels-photo-6694492.jpeg",
     title: 'Master Cashflow',
     description: 'Real-time forecasts and optimisation ensure steady profitability, avoiding common pitfalls that sink 80% of growing firms.',
@@ -81,7 +92,7 @@ const VALUE_PROPOSITIONS = [
     alt: 'Scalable systems illustration'
   },
   {
-    color: 'secondary' as const,
+    color: 'pink' as const,
     img: "https://images.pexels.com/photos/6863176/pexels-photo-6863176.jpeg",
     title: 'Tax-Optimised Compliance',
     description: 'Stay compliant whilst minimising tax liability. Our registered tax agents ensure you\'re taking advantage of every legitimate opportunity to reduce your tax burden.',
@@ -138,6 +149,18 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 ]);
 
 export default function Home() {
+  const [current, setCurrent] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on('select', () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
   return (
     <>
       <JsonLd data={organizationSchema} />
@@ -180,68 +203,64 @@ export default function Home() {
           </div>
         </div>
       </Section>
-      <div className='flex bg-[#ed1651] h-[300px] py-4 items-center justify-center gap-6'>
-        {/* Image 1 */}
-        <div className='bg-white p-4 rounded-tl-[120px] rounded-br-[120px] shadow-lg transition-transform duration-300 hover:scale-105'>
-          <Image
-            src={image2}
-            alt='Professional accounting services Brisbane'
-            className='object-contain rounded-tl-[120px] rounded-br-[120px] aspect-video'
-            width={400}
-            height={300}
-            loading="lazy"
-          />
-        </div>
 
-        {/* Image 2 */}
-        <div className='bg-white p-4 rounded-tl-[120px] rounded-br-[120px] shadow-lg transition-transform duration-300 hover:scale-105'>
-          <Image
-            src={image1}
-            alt='Financial management solutions Queensland'
-            className='object-contain aspect-video'
-            width={400}
-            height={300}
-            loading="lazy"
-          />
-        </div>
-      </div>
-      {/* Stats Section */}
-      <Section>
-        <div className={cn(
-          designTokens.grid.cols4,
-          designTokens.spacing.gap.md
-        )}>
-          {STATS.map((stat, index) => (
-            <Card
+
+      <Section className='w-full bg-[#ed1651]!'>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: false,
+            
+          }}
+          className="w-full "
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {STATS.map((stat, index) => (
+              <CarouselItem key={index} className="pl-2 md:pl-4 basis-auto">
+                <Card
+                  className={cn(
+                    componentPresets.card.base,
+                    'w-[250px] h-[250px]',
+                    'flex items-center justify-center',
+                    designTokens.transitions.base,
+                    'hover:-translate-y-1'
+                  )}
+                >
+                  <CardContent className="p-4 h-full flex flex-col  gap-3 items-center justify-center">
+                    <div className="h-20 grow flex items-center justify-center">
+                      <Image
+                        src={stat.icon}
+                        alt={stat.alt}
+                        className="h-20 w-full object-contain"
+                        width={64}
+                        height={64}
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 className={cn(designTokens.typography.h6, 'text-gray-900 h-16 text-center')}>
+                      {stat.title}
+                    </h3>
+                  </CardContent>
+                </Card>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+        {/* <div className="flex justify-center gap-2 mt-8">
+          {STATS.map((_, index) => (
+            <button
               key={index}
+              onClick={() => api?.scrollTo(index)}
               className={cn(
-                componentPresets.card.base,
-                'flex flex-col items-center text-center',
-                designTokens.spacing.card.paddingSm,
-                designTokens.transitions.base,
-                'hover:-translate-y-1'
+                'transition-all duration-300 rounded-full',
+                index === current
+                  ? 'bg-gray-800 w-8 h-2'
+                  : 'bg-gray-300 w-2 h-2 hover:bg-gray-400'
               )}
-            >
-              <CardContent className="p-0 flex flex-col gap-3 items-center">
-                <div className="w-16 h-16 flex items-center justify-center">
-                  <Image
-                    src={stat.icon}
-                    alt={stat.alt}
-                    width={64}
-                    height={64}
-                    loading="lazy"
-                  />
-                </div>
-                <h3 className={cn(designTokens.typography.h5, 'text-gray-900')}>
-                  {stat.title}
-                </h3>
-                <p className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
-                  {stat.description}
-                </p>
-              </CardContent>
-            </Card>
+              aria-label={`Go to slide ${index + 1}`}
+            />
           ))}
-        </div>
+        </div> */}
       </Section>
 
       {/* Value Propositions */}
@@ -275,7 +294,6 @@ export default function Home() {
                       fill
                       className="object-cover aspect-video w-full"
                       loading="lazy"
-                    // sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
 
@@ -283,7 +301,7 @@ export default function Home() {
                     componentPresets.card.colored(item.color),
                     'p-8 md:p-10 lg:p-12',
                     'flex flex-col gap-4',
-                    index % 2 === 1 && 'md:order-1'
+                    index % 2 === 1 && ''
                   )}>
                     <h3 className={cn(designTokens.typography.h3, 'text-gray-900')}>
                       {item.title}
@@ -307,13 +325,52 @@ export default function Home() {
         />
         <ServicesCarousel />
 
-        <div className="flex flex-col items-center gap-6 mt-12">
+        {/* <div className="flex flex-col items-center gap-6 mt-12">
           <p className={cn(designTokens.typography.body, 'text-gray-600 text-center max-w-3xl')}>
             All packages available as monthly investments. Contact us to discuss unbundled services tailored to your specific needs.
           </p>
           <Button className={componentPresets.button.primary}>
             Schedule a Consultation to Discuss Your Needs
           </Button>
+        </div> */}
+        <div className="bg-white rounded-xl mt-10 shadow-lg border-2 border-gray-200 overflow-hidden">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-50 border-b-2 border-gray-200">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 min-w-[300px]">
+                    Features
+                  </th>
+                  {packageDetails.map((pkg, index) => (
+                    <th key={index} className="px-6 py-4 text-center min-w-[140px]">
+                      <div className="text-lg font-bold text-gray-900">{pkg.name}</div>
+                      <div className="text-xs text-gray-600 mt-1">{pkg.description}</div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {allFeatures.map((feature, index) => (
+                  <tr key={index} className="hover:bg-slate-50 transition-colors">
+                    <td className="px-6 py-4 text-sm text-gray-700">{feature}</td>
+                    {packageDetails.map((pkg, pkgIndex) => (
+                      <td key={pkgIndex} className="px-6 py-4 text-center">
+                        {pkg.features[feature as keyof typeof pkg.features] ? (
+                          <div className="flex justify-center">
+                            <Check className="w-5 h-5 text-[#ed1651]" />
+                          </div>
+                        ) : (
+                          <div className="flex justify-center">
+                            <X className="w-5 h-5 text-gray-300" />
+                          </div>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Section>
 
@@ -367,7 +424,7 @@ export default function Home() {
               <div className="w-32 h-32 mx-auto bg-linear-to-br from-cyan-400 to-teal-400 rounded-full flex items-center justify-center mb-6">
                 <span className="text-6xl" role="img" aria-label="Pink flower">🌸</span>
               </div>
-              <div className="text-6xl font-bold text-cyan-600 mb-2">2020</div>
+              <div className="text-6xl font-bold text-[#ed1651] mb-2">2020</div>
               <p className={cn(designTokens.typography.body, 'text-gray-700 font-medium')}>
                 Founded during COVID-19
               </p>
@@ -375,7 +432,7 @@ export default function Home() {
           </Card>
 
           <div className="space-y-6">
-            <div className="border-l-4 border-cyan-500 pl-6">
+            <div className="border-l-4 border-black pl-6">
               <h3 className={cn(designTokens.typography.h3, 'text-gray-900 mb-3')}>
                 Born from Challenge
               </h3>
@@ -384,7 +441,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="border-l-4 border-teal-500 pl-6">
+            <div className="border-l-4 border-black pl-6">
               <h3 className={cn(designTokens.typography.h3, 'text-gray-900 mb-3')}>
                 Evolved with Purpose
               </h3>
@@ -397,12 +454,12 @@ export default function Home() {
 
         {/* CTA Section */}
         <Card className={cn(
-          'bg-white border-2 border-cyan-500',
+          'bg-white border-2 border-[#ed1651]',
           designTokens.shadows.xl,
           designTokens.spacing.card.paddingLg
         )}>
           <CardContent className="p-0 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-cyan-500 rounded-full mb-6">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#ed1651] rounded-full mb-6">
               <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
@@ -419,3 +476,132 @@ export default function Home() {
     </>
   );
 }
+
+const packageDetails = [
+  {
+    name: 'Essentials',
+    description: 'For businesses seeking compliance-focused support',
+    perfectFor: 'Businesses with in-house bookkeeping who need tax compliance only',
+    features: {
+      'Quarterly BAS preparation and lodgement': true,
+      'Annual tax return preparation': true,
+      'Basic tax planning advice': true,
+      'Email support during business hours': true,
+      'Annual compliance calendar': true,
+      'Monthly bookkeeping and reconciliation': false,
+      'Cashflow monitoring and reporting': false,
+      'Quarterly financial health check-ins': false,
+      'Phone support': false,
+      'Fortnightly cashflow management': false,
+      'Monthly management reporting': false,
+      'Strategic tax planning sessions': false,
+      'Payroll optimisation': false,
+      'Priority support': false,
+      'Weekly cashflow oversight': false,
+      'Monthly strategic consultancy': false,
+      'Custom dashboards': false,
+      'Direct Principal access': false,
+      'After-hours support': false
+    }
+  },
+  {
+    name: 'Foundation',
+    description: 'For businesses $500K-$1M turnover',
+    perfectFor: 'Growing businesses ready to outsource bookkeeping and gain financial clarity',
+    features: {
+      'Quarterly BAS preparation and lodgement': true,
+      'Annual tax return preparation': true,
+      'Basic tax planning advice': true,
+      'Email support during business hours': true,
+      'Annual compliance calendar': true,
+      'Monthly bookkeeping and reconciliation': true,
+      'Cashflow monitoring and reporting': true,
+      'Quarterly financial health check-ins': true,
+      'Phone support': true,
+      'Fortnightly cashflow management': false,
+      'Monthly management reporting': false,
+      'Strategic tax planning sessions': false,
+      'Payroll optimisation': false,
+      'Priority support': false,
+      'Weekly cashflow oversight': false,
+      'Monthly strategic consultancy': false,
+      'Custom dashboards': false,
+      'Direct Principal access': false,
+      'After-hours support': false
+    }
+  },
+  {
+    name: 'Growth',
+    description: 'For businesses $1M-$2M turnover',
+    perfectFor: 'Established businesses scaling operations and needing proactive financial partnership',
+    features: {
+      'Quarterly BAS preparation and lodgement': true,
+      'Annual tax return preparation': true,
+      'Basic tax planning advice': true,
+      'Email support during business hours': true,
+      'Annual compliance calendar': true,
+      'Monthly bookkeeping and reconciliation': true,
+      'Cashflow monitoring and reporting': true,
+      'Quarterly financial health check-ins': true,
+      'Phone support': true,
+      'Fortnightly cashflow management': true,
+      'Monthly management reporting': true,
+      'Strategic tax planning sessions': true,
+      'Payroll optimisation': true,
+      'Priority support': true,
+      'Weekly cashflow oversight': false,
+      'Monthly strategic consultancy': false,
+      'Custom dashboards': false,
+      'Direct Principal access': false,
+      'After-hours support': false
+    }
+  },
+  {
+    name: 'Scale',
+    description: 'For businesses $2M-$3M+ turnover',
+    perfectFor: 'Ambitious businesses requiring comprehensive financial partnership and strategic guidance',
+    features: {
+      'Quarterly BAS preparation and lodgement': true,
+      'Annual tax return preparation': true,
+      'Basic tax planning advice': true,
+      'Email support during business hours': true,
+      'Annual compliance calendar': true,
+      'Monthly bookkeeping and reconciliation': true,
+      'Cashflow monitoring and reporting': true,
+      'Quarterly financial health check-ins': true,
+      'Phone support': true,
+      'Fortnightly cashflow management': true,
+      'Monthly management reporting': true,
+      'Strategic tax planning sessions': true,
+      'Payroll optimisation': true,
+      'Priority support': true,
+      'Weekly cashflow oversight': true,
+      'Monthly strategic consultancy': true,
+      'Custom dashboards': true,
+      'Direct Principal access': true,
+      'After-hours support': true
+    }
+  }
+];
+
+const allFeatures = [
+  'Quarterly BAS preparation and lodgement',
+  'Annual tax return preparation',
+  'Basic tax planning advice',
+  'Email support during business hours',
+  'Annual compliance calendar',
+  'Monthly bookkeeping and reconciliation',
+  'Cashflow monitoring and reporting',
+  'Quarterly financial health check-ins',
+  'Phone support',
+  'Fortnightly cashflow management',
+  'Monthly management reporting',
+  'Strategic tax planning sessions',
+  'Payroll optimisation',
+  'Priority support',
+  'Weekly cashflow oversight',
+  'Monthly strategic consultancy',
+  'Custom dashboards',
+  'Direct Principal access',
+  'After-hours support'
+];

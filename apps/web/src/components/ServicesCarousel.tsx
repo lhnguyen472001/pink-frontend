@@ -80,7 +80,6 @@ export default function ServicesCarousel() {
   useEffect(() => {
     if (!api) return;
 
-    // Start at the most popular service (Growth package)
     api.scrollTo(2);
     setCurrent(api.selectedScrollSnap());
 
@@ -103,15 +102,15 @@ export default function ServicesCarousel() {
         {SERVICES.map((service, index) => (
           <CarouselItem
             key={service.id}
-            className="pl-4 basis-[90%] sm:basis-[80%] md:basis-[70%] lg:basis-[50%]"
+            className="pl-4 basis-[80%] sm:basis-[60%] md:basis-[50%] lg:basis-[40%]"
           >
             <Card
               className={cn(
                 'bg-white h-full border-2',
                 designTokens.transitions.slow,
                 index === current
-                  ? 'scale-100 opacity-100 shadow-2xl border-cyan-500'
-                  : 'scale-90 opacity-60 shadow-md border-gray-200'
+                  ? 'scale-100 opacity-100 shadow-2xl border-[#ed1651]'
+                  : 'scale-90 opacity-60 shadow-md '
               )}
             >
               <CardContent className={cn(
@@ -120,11 +119,11 @@ export default function ServicesCarousel() {
               )}>
                 {/* Badge for Most Popular */}
                 {service.mostPopular && (
-                  <div className="mb-4">
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
                     <span className={cn(
                       'inline-block',
-                      'bg-linear-to-r from-cyan-500 to-teal-500',
-                      'text-white text-xs font-bold px-3 py-1',
+                      'bg-linear-to-r from-[#ed1651] to-[#f96e93]',
+                      'text-white text-lg font-bold px-3 py-1',
                       'rounded-full uppercase tracking-wide'
                     )}>
                       Most Popular
@@ -143,8 +142,8 @@ export default function ServicesCarousel() {
                 </div>
 
                 {/* Pricing */}
-                <div className="mb-6 pb-6 border-b border-gray-200">
-                  <p className="text-3xl font-bold text-cyan-600">
+                <div className="mb-6 pb-6 ">
+                  <p className="text-3xl font-bold text-black">
                     {service.monthlyInvestment.split(' ')[0]} {service.monthlyInvestment.split(' ')[1]}
                   </p>
                   <p className={cn(designTokens.typography.caption, 'text-gray-500 mt-1')}>
@@ -153,15 +152,15 @@ export default function ServicesCarousel() {
                 </div>
 
                 {/* Key Features */}
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">
+                {/* <div className="flex-1">
+                  <p className=" font-semibold text-gray-700 uppercase tracking-wide mb-4">
                     Key Features
                   </p>
                   <div className="space-y-3">
                     {service.keyFeatures.map((feature, idx) => (
                       <div key={idx} className="flex items-start gap-3">
                         <svg
-                          className="w-5 h-5 text-cyan-500 mt-0.5 flex-shrink-0"
+                          className="w-5 h-5 text-[#ed1651] mt-0.5 shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -174,26 +173,26 @@ export default function ServicesCarousel() {
                             d="M5 13l4 4L19 7"
                           />
                         </svg>
-                        <p className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
+                        <p className={cn(designTokens.typography.bodySmall, 'text-gray-600 text-sm')}>
                           {feature}
                         </p>
                       </div>
                     ))}
                   </div>
-                </div>
+                </div> */}
               </CardContent>
             </Card>
           </CarouselItem>
         ))}
       </CarouselContent>
 
-      <div className="hidden md:block">
+      {/* <div className="hidden md:block">
         <CarouselPrevious className="left-0" />
         <CarouselNext className="right-0" />
-      </div>
+      </div> */}
 
       {/* Carousel Indicators */}
-      <div className="flex justify-center gap-2 mt-8">
+      <div className="flex justify-center gap-2 ">
         {SERVICES.map((_, index) => (
           <button
             key={index}

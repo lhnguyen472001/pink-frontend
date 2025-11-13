@@ -42,7 +42,7 @@ const SERVICES = [
         ],
         investment: "From $500 + GST per month",
         result: "Confidence in your financial runway and the ability to make strategic decisions based on data, not guesswork.",
-        color: "secondary" as const,
+        color: "pink" as const,
         icon: "💰"
     },
     {
@@ -60,7 +60,7 @@ const SERVICES = [
         ],
         investment: "From $417 + GST per month",
         result: "Peace of mind that you're compliant, optimised, and protected.",
-        color: "primary" as const,
+        color: "pink" as const,
         icon: "📋"
     },
     {
@@ -78,7 +78,7 @@ const SERVICES = [
         ],
         investment: "$250 + GST per hour",
         result: "Confident decision-making backed by financial expertise and business acumen.",
-        color: "secondary" as const,
+        color: "pink" as const,
         icon: "💡"
     },
     {
@@ -114,7 +114,7 @@ const SERVICES = [
         ],
         investment: "From $1,667 + GST per month",
         result: "Enterprise-level financial management at a fraction of the cost of hiring internally.",
-        color: "secondary" as const,
+        color: "pink" as const,
         icon: "👥"
     }
 ];
@@ -263,7 +263,7 @@ export default function ServicesPage() {
                                             {service.features.map((feature, idx) => (
                                                 <div key={idx} className="flex items-start gap-3">
                                                     <svg
-                                                        className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0"
+                                                        className="w-5 h-5 text-primary-500 mt-0.5 shrink-0"
                                                         fill="none"
                                                         stroke="currentColor"
                                                         viewBox="0 0 24 24"

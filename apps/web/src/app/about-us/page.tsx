@@ -36,7 +36,7 @@ const LEADERSHIP = [
       'Registered Tax Agent'
     ],
     approach: 'Jessica brings deep taxation expertise to our practice, ensuring clients are always compliant whilst taking advantage of every legitimate tax optimisation opportunity.',
-    color: 'secondary' as const,
+    color: 'pink' as const,
     initial: 'J'
   },
   {
@@ -124,7 +124,7 @@ const MISSION_PILLARS = [
     title: 'Delivering Real-Time Profitability Visibility',
     description: 'We provide executive-level reporting on P&L and critical cash flow drivers within the current fiscal period, not merely in arrears. This enables owners to make agile, data-driven decisions that protect and optimize margin performance and enhance financial performance.',
     icon: '📊',
-    color: 'secondary' as const
+    color: 'pink' as const
   },
   {
     title: 'Implementing Scalable Financial Infrastructure',
@@ -167,7 +167,7 @@ export default function AboutUsPage() {
       <Section>
         <div className={cn(designTokens.grid.cols2, designTokens.spacing.gap.lg, 'mb-16')}>
           <Card className={cn(
-            componentPresets.card.colored('secondary'),
+            componentPresets.card.colored('pink'),
             designTokens.shadows.lg
           )}>
             <CardContent className={designTokens.spacing.card.paddingLg}>
