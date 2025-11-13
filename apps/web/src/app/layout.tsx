@@ -17,6 +17,27 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Comprehensive Accounting & Financial Advisory Services | Pink Accounting",
   description: "Pink Accounting provides comprehensive accounting, bookkeeping, cash flow management, and strategic advisory solutions for SMEs. Contact us now to build a robust financial system.",
+  openGraph: {
+    title: "Comprehensive Accounting & Financial Advisory Services | Pink Accounting",
+    description: "Pink Accounting provides comprehensive accounting, bookkeeping, cash flow management, and strategic advisory solutions for SMEs. Contact us now to build a robust financial system.",
+    images: [
+      {
+        url: '/thumbnail.jpg', 
+        width: 1200,
+        height: 630,
+        alt: 'Pink Accounting Services',
+      }
+    ],
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Pink Accounting',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Comprehensive Accounting & Financial Advisory Services | Pink Accounting",
+    description: "Pink Accounting provides comprehensive accounting, bookkeeping, cash flow management, and strategic advisory solutions for SMEs. Contact us now to build a robust financial system.",
+    images: ['/thumbnail.jpg'],
+  },
 };
 
 export default function RootLayout({

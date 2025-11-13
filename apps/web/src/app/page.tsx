@@ -13,16 +13,80 @@ import SectionHeader from '@/components/SectionHeader';
 import type { Metadata } from 'next';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { useEffect, useState } from 'react';
-import { Check, CheckCircle, Clock, TrendingUp, Users, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import Link from 'next/link';
 
-// Dynamic imports for performance
+// Lazy load icons để giảm initial bundle
+const Clock = dynamic(() => import('lucide-react').then(mod => ({ default: mod.Clock })), { ssr: false });
+const TrendingUp = dynamic(() => import('lucide-react').then(mod => ({ default: mod.TrendingUp })), { ssr: false });
+const Users = dynamic(() => import('lucide-react').then(mod => ({ default: mod.Users })), { ssr: false });
+const CheckCircle = dynamic(() => import('lucide-react').then(mod => ({ default: mod.CheckCircle })), { ssr: false });
+
+// Dynamic imports với loading states tốt hơn
 const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), {
-  loading: () => <div className="h-96 animate-pulse bg-gray-100 rounded-lg" />
+  loading: () => <div className="h-96 animate-pulse bg-gray-100 rounded-lg" />,
+  ssr: false // Không render server-side nếu không cần thiết
 });
 
-const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'));
+const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), {
+  ssr: false,
+  loading: () => <div className="h-64 animate-pulse bg-gray-100 rounded-lg" />
+});
 
+const ComparisonTable = dynamic(() => import('@/components/Comparisontable').catch(() => {
+  return {
+    default: ({ packageDetails, allFeatures }: any) => (
+      <div className="bg-white rounded-lg sm:rounded-xl mt-8 sm:mt-10 shadow-lg border-2 border-gray-200 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-slate-50 border-b-2 border-gray-200">
+              <tr>
+                <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-900 min-w-[200px] sm:min-w-[250px] md:min-w-[300px] sticky left-0 bg-slate-50 z-10">
+                  Features
+                </th>
+                {packageDetails.map((pkg: any, index: number) => (
+                  <th key={index} className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px]">
+                    <div className="text-sm sm:text-base md:text-lg font-bold text-gray-900">
+                      {pkg.name}
+                    </div>
+                    <div className="text-[10px] sm:text-xs text-gray-600 mt-1">
+                      {pkg.description}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {allFeatures.map((feature: string, index: number) => (
+                <tr key={index} className="hover:bg-slate-50 transition-colors">
+                  <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 sticky left-0 bg-white z-10">
+                    {feature}
+                  </td>
+                  {packageDetails.map((pkg: any, pkgIndex: number) => (
+                    <td key={pkgIndex} className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center">
+                      {pkg.features[feature as keyof typeof pkg.features] ? (
+                        <div className="flex justify-center">
+                          <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#ed1651]" />
+                        </div>
+                      ) : (
+                        <div className="flex justify-center">
+                          <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" />
+                        </div>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )
+  }
+}), {
+  ssr: false,
+  loading: () => <div className="h-96 animate-pulse bg-gray-100 rounded-lg mt-8" />
+});
 
 const differentiators = [
   {
@@ -44,22 +108,22 @@ const differentiators = [
 
 const benefits = [
   {
-    icon: Clock,
+    icon: 'Clock',
     title: 'Reclaim Your Time',
     description: 'Outsource bookkeeping chaos to our experts, focus on scaling while we handle the details.'
   },
   {
-    icon: TrendingUp,
+    icon: 'TrendingUp',
     title: 'Master Cashflow',
     description: 'Real-time forecasts and optimisation ensure steady profitability, avoiding common pitfalls that sink 80% of growing firms.'
   },
   {
-    icon: Users,
+    icon: 'Users',
     title: 'Build Scalable Systems',
     description: 'Custom infrastructure for $500K-$3M+ growth, from Xero setups to KPI dashboards.'
   },
   {
-    icon: CheckCircle,
+    icon: 'CheckCircle',
     title: 'Tax-Optimised Compliance',
     description: 'Stay compliant whilst minimising tax liability. Our registered tax agents ensure you\'re taking advantage of every legitimate opportunity.'
   }
@@ -113,6 +177,20 @@ const breadcrumbSchema = generateBreadcrumbSchema([
   { name: 'Home', url: '/' },
 ]);
 
+// Icon mapping component
+const IconComponent = ({ iconName, className }: { iconName: string, className: string }) => {
+  const [Icon, setIcon] = useState<any>(null);
+
+  useEffect(() => {
+    import('lucide-react').then((mod) => {
+      setIcon(() => (mod as any)[iconName]);
+    });
+  }, [iconName]);
+
+  if (!Icon) return <div className={className} />;
+  return <Icon className={className} />;
+};
+
 export default function Home() {
   const [current, setCurrent] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
@@ -126,18 +204,17 @@ export default function Home() {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
   return (
     <>
       <JsonLd data={organizationSchema} />
       <JsonLd data={breadcrumbSchema} />
 
-      {/* Hero Section - Optimized spacing */}
-      <Section variant="secondary" size="lg" container="none" className='relative'>
+      {/* Hero Section - Optimized với fetchPriority */}
+      <Section variant="secondary" size="lg" container="none" className='relative max-sm:pb-5 max-sm:pt-12'>
         <div className={designTokens.spacing.containerNarrow}>
           <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-16 items-center">
             <div className="relative aspect-square lg:aspect-auto flex flex-col gap-4 sm:gap-6 lg:gap-8 order-2 lg:order-1 rounded-lg lg:rounded-none overflow-hidden">
-
-
               <div className="relative z-10 p-4 sm:p-6 md:p-8 lg:p-0 flex flex-col justify-center h-full gap-4 sm:gap-6 lg:gap-8">
                 <h1 className={cn(
                   designTokens.typography.h1,
@@ -155,7 +232,7 @@ export default function Home() {
                   Your Local Growth Partner for South-East Queensland businesses ready to grow beyond $500K
                 </p>
 
-                <Link href={"/contact"} className="flex w-fit flex-col sm:flex-row gap-3 sm:gap-4">
+                <Link href={"/contact"} className="flex w-fit flex-col sm:flex-row gap-3 max-sm:mt-5 max-sm:mx-auto sm:gap-4">
                   <Button className={cn(
                     componentPresets.button.primary,
                     'bg-[#ed1651] cursor-pointer shadow-lg',
@@ -179,7 +256,8 @@ export default function Home() {
                 height={600}
                 priority
                 placeholder="blur"
-                sizes="50vw"
+                sizes="(max-width: 1024px) 0vw, 50vw"
+                quality={85}
               />
             </div>
           </div>
@@ -191,14 +269,16 @@ export default function Home() {
             className="w-full h-full object-cover"
             fill
             priority
-            sizes="(max-width: 1024px) 100vw, 0vw"
+            sizes="100vw"
+            quality={75}
+            placeholder="blur"
           />
-          <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/60 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
         </div>
       </Section>
 
-      {/* Stats Section - Optimized spacing */}
-      <Section className='w-full bg-white!'>
+      {/* Stats Section */}
+      <Section className='w-full bg-white'>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {differentiators.map((item, index) => (
@@ -218,7 +298,7 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Benefits Section - Optimized grid and spacing */}
+      {/* Benefits Section - Lazy load icons */}
       <Section variant="neutral">
         <SectionHeader
           title="Why Growing Businesses Choose Pink Accounting"
@@ -226,26 +306,23 @@ export default function Home() {
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-          {benefits.map((benefit, index) => {
-            const Icon = benefit.icon;
-            return (
-              <div key={index} className="bg-white p-4 sm:p-5 md:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#ed1651]" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
-                  {benefit.title}
-                </h3>
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  {benefit.description}
-                </p>
+          {benefits.map((benefit, index) => (
+            <div key={index} className="bg-white p-4 sm:p-5 md:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                <IconComponent iconName={benefit.icon} className="w-5 h-5 sm:w-6 sm:h-6 text-[#ed1651]" />
               </div>
-            );
-          })}
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                {benefit.title}
+              </h3>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                {benefit.description}
+              </p>
+            </div>
+          ))}
         </div>
       </Section>
 
-      {/* Services Carousel - Optimized table for mobile */}
+      {/* Services Carousel - Lazy loaded */}
       <Section>
         <SectionHeader
           title="Our Service Packages"
@@ -253,54 +330,10 @@ export default function Home() {
         />
         <ServicesCarousel />
 
-        <div className="bg-white rounded-lg sm:rounded-xl mt-8 sm:mt-10 shadow-lg border-2 border-gray-200 overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-50 border-b-2 border-gray-200">
-                <tr>
-                  <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-900 min-w-[200px] sm:min-w-[250px] md:min-w-[300px] sticky left-0 bg-slate-50 z-10">
-                    Features
-                  </th>
-                  {packageDetails.map((pkg, index) => (
-                    <th key={index} className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px]">
-                      <div className="text-sm sm:text-base md:text-lg font-bold text-gray-900">
-                        {pkg.name}
-                      </div>
-                      <div className="text-[10px] sm:text-xs text-gray-600 mt-1">
-                        {pkg.description}
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {allFeatures.map((feature, index) => (
-                  <tr key={index} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 sticky left-0 bg-white z-10">
-                      {feature}
-                    </td>
-                    {packageDetails.map((pkg, pkgIndex) => (
-                      <td key={pkgIndex} className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center">
-                        {pkg.features[feature as keyof typeof pkg.features] ? (
-                          <div className="flex justify-center">
-                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#ed1651]" />
-                          </div>
-                        ) : (
-                          <div className="flex justify-center">
-                            <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" />
-                          </div>
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <ComparisonTable packageDetails={packageDetails} allFeatures={allFeatures} />
       </Section>
 
-      {/* Who We Serve - Optimized cards */}
+      {/* Who We Serve */}
       <Section variant="neutral">
         <SectionHeader title="Who We Serve Best" />
 
@@ -316,7 +349,7 @@ export default function Home() {
               <CardContent className="p-0">
                 <h3 className={cn(
                   'text-gray-900 mb-3 sm:mb-4',
-                  'text-xl md:text-2xl  font-bold'
+                  'text-xl md:text-2xl font-bold'
                 )}>
                   {item.title}
                 </h3>
@@ -333,13 +366,13 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Testimonials */}
+      {/* Testimonials - Lazy loaded */}
       <Section variant="primary">
         <SectionHeader title="Client Success Stories" />
         <TestimonialsSection testimonials={TESTIMONIALS} />
       </Section>
 
-      {/* Our Story - Optimized layout */}
+      {/* Our Story */}
       <Section>
         <SectionHeader
           title="Our Story"
@@ -348,7 +381,7 @@ export default function Home() {
 
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center mb-8 sm:mb-10 md:mb-12">
           <Card className={cn(
-            'bg-linear-to-br from-secondary-50 to-secondary-100',
+            'bg-gradient-to-br from-secondary-50 to-secondary-100',
             'border-none',
             designTokens.shadows.lg,
             'p-6 sm:p-8 md:p-10'
@@ -361,6 +394,8 @@ export default function Home() {
                   width={128}
                   height={128}
                   className="w-full h-full object-cover"
+                  loading="lazy"
+                  quality={80}
                 />
               </div>
               <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#ed1651] mb-2">
