@@ -15,6 +15,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useEffect, useState } from 'react';
 import { Check, X } from 'lucide-react';
 import Link from 'next/link';
+import img1 from "@public/home/img1.jpeg"
+import img2 from "@public/home/img2.jpeg"
+import img3 from "@public/home/img3.jpeg"
 
 // Lazy load icons để giảm initial bundle
 const Clock = dynamic(() => import('lucide-react').then(mod => ({ default: mod.Clock })), { ssr: false });
@@ -22,10 +25,9 @@ const TrendingUp = dynamic(() => import('lucide-react').then(mod => ({ default: 
 const Users = dynamic(() => import('lucide-react').then(mod => ({ default: mod.Users })), { ssr: false });
 const CheckCircle = dynamic(() => import('lucide-react').then(mod => ({ default: mod.CheckCircle })), { ssr: false });
 
-// Dynamic imports với loading states tốt hơn
 const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), {
   loading: () => <div className="h-96 animate-pulse bg-gray-100 rounded-lg" />,
-  ssr: false // Không render server-side nếu không cần thiết
+  ssr: false 
 });
 
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), {
@@ -154,19 +156,19 @@ const WHO_WE_SERVE = [
 
 const TESTIMONIALS = [
   {
-    avatar: "https://images.pexels.com/photos/13736439/pexels-photo-13736439.jpeg",
+    avatar: img1,
     quote: 'Pink Accounting transformed our financial chaos into clarity. Within six months, we improved our cashflow by 40% and finally understood our numbers. Pinky and her team are worth every dollar.',
     author: 'Amy M.',
     position: 'Cafe Business Owner, Brisbane',
   },
   {
-    avatar: "https://images.pexels.com/photos/6888761/pexels-photo-6888761.jpeg ",
+    avatar: img2,
     quote: 'As we scaled from $800K to $2.1M, Pink Accounting scaled with us. They didn\'t just keep up, they anticipated our needs and proactively solved problems before they became issues.',
     author: 'Phillip P.',
     position: 'Business Operator, Northside Brisbane',
   },
   {
-    avatar: "https://images.pexels.com/photos/11899617/pexels-photo-11899617.jpeg",
+    avatar: img3,
     quote: 'The responsiveness is incredible. I can email at 9 PM and know I\'ll get a thoughtful reply the next morning. It\'s like having an in-house financial team without the overhead.',
     author: 'Andy T.',
     position: 'Professional Services, Brisbane',
@@ -256,7 +258,6 @@ export default function Home() {
                 height={600}
                 priority
                 placeholder="blur"
-                sizes="(max-width: 1024px) 0vw, 50vw"
                 quality={85}
               />
             </div>
@@ -381,7 +382,7 @@ export default function Home() {
 
         <div className="grid md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center mb-8 sm:mb-10 md:mb-12">
           <Card className={cn(
-            'bg-gradient-to-br from-secondary-50 to-secondary-100',
+            'bg-linear-to-br from-secondary-50 to-secondary-100',
             'border-none',
             designTokens.shadows.lg,
             'p-6 sm:p-8 md:p-10'

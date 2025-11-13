@@ -1,10 +1,9 @@
-// components/home/TestimonialsSection.tsx
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, componentPresets, designTokens } from '@/lib/design-tokens';
-import Image from 'next/image';
+import Image, { type StaticImageData } from 'next/image';
 
 interface Testimonial {
-  avatar: string,
+  avatar: StaticImageData,
   quote: string;
   author: string;
   position: string;
