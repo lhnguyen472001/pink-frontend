@@ -1,23 +1,15 @@
-// app/contact/page.tsx
+'use client'
 import { generateSEO, JsonLd, generateBreadcrumbSchema, generateFAQSchema } from '@/lib/seo';
 import { Section } from '@/components/Section';
 import { SectionHeader } from '@/components/SectionHeader';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, designTokens, componentPresets } from '@/lib/design-tokens';
-import ContactForm from '@/components/ContactForm';
 import Link from 'next/link';
+import { useState } from 'react';
+import { Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
 
 
 
-const TEAM_MEMBERS = [
-  { name: "Pinky Bui", role: "Principal Accountant", email: "hb@pinktax.com.au" },
-  { name: "Jessica You", role: "Senior Tax Accountant", email: "jessica@pinktax.com.au" },
-  { name: "Miftas Sriyan", role: "Financial Accountant", email: "miftas@pinktax.com.au" },
-  { name: "Bonnie Gloriane", role: "Senior Admin", email: "bonnie@pinktax.com.au" },
-  { name: "Regs", role: "Senior Bookkeeper", email: "regs@pinktax.com.au" },
-  { name: "Nazel Rose", role: "Intermediate Bookkeeper", email: "nazel@pinktax.com.au" },
-  { name: "Daisy Nguyen", role: "Bookkeeper", email: "daisy@pinktax.com.au" }
-];
 
 const FAQS = [
   {
@@ -72,8 +64,64 @@ const breadcrumbSchema = generateBreadcrumbSchema([
 ]);
 
 const faqSchema = generateFAQSchema(FAQS);
-
+export interface ContactFormData {
+  fullName: string;
+  businessName: string;
+  email: string;
+  phone: string;
+  industry: string;
+  turnover: string;
+  primaryNeed: string;
+  currentSituation: string;
+  message: string;
+  contactMethod: string;
+  preferredTime?: string;
+}
 export default function ContactPage() {
+  const [formData, setFormData] = useState<ContactFormData>({
+    fullName: '',
+    businessName: '',
+    email: '',
+    phone: '',
+    industry: '',
+    turnover: '',
+    primaryNeed: '',
+    currentSituation: '',
+    message: '',
+    contactMethod: 'email',
+    preferredTime: ''
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({
+        fullName: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        industry: '',
+        turnover: '',
+        primaryNeed: '',
+        currentSituation: '',
+        message: '',
+        contactMethod: 'email',
+        preferredTime: ''
+      });
+    }, 3000);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
   return (
     <>
       {/* Structured Data */}
@@ -93,189 +141,316 @@ export default function ContactPage() {
       </Section>
 
       {/* Contact Info & Form Section */}
-      <Section>
-        <div className={cn(designTokens.grid.cols2, designTokens.spacing.gap.xl)}>
-          {/* Left Side - Contact Information */}
-          <div className="space-y-6">
-            {/* Office Locations */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
-              <h2 className={cn(designTokens.typography.h3, 'text-gray-900 mb-6')}>
-                Our Offices
-              </h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">Get In Touch</h2>
 
-              <Card className={cn(
-                componentPresets.card.colored('primary'),
-                'mb-4'
-              )}>
-                <CardContent className={designTokens.spacing.card.padding}>
-                  <div className="flex gap-4 items-start">
-                    <div className="text-4xl">🏢</div>
-                    <div className="flex-1">
-                      <div className="inline-block bg-primary-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-3">
-                        OPENING SOON
-                      </div>
-                      <h3 className={cn(designTokens.typography.h5, 'text-gray-900 mb-2')}>
-                        New Office Location
-                      </h3>
-                      <p className={cn(designTokens.typography.bodySmall, 'text-gray-700')}>
+              <div className="space-y-6 mb-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-6 h-6 text-pink-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
+                    <a href="tel:0735446386" className="text-gray-600 hover:text-pink-600 transition-colors">
+                      07 3544 6386
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-6 h-6 text-pink-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
+                    <a href="mailto:admin@pinktax.com.au" className="text-gray-600 hover:text-pink-600 transition-colors">
+                      admin@pinktax.com.au
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-6 h-6 text-pink-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">Current Office</h3>
+                    <p className="text-gray-600">
+                      1/263 Toombul Rd<br />
+                      Northgate QLD 4013
+                    </p>
+                    <div className="mt-4 pt-4 border-t border-gray-200">
+                      <h3 className="font-semibold text-gray-900 mb-2">New Office (Opening Soon)</h3>
+                      <p className="text-gray-600">
                         Shop 15A, 18-22 Kremzow Rd<br />
                         Brendale QLD 4500
                       </p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
 
-              <Card className={cn(componentPresets.card.base)}>
-                <CardContent className={designTokens.spacing.card.padding}>
-                  <div className="flex gap-4 items-start">
-                    <div className="text-4xl">📍</div>
-                    <div className="flex-1">
-                      <h3 className={cn(designTokens.typography.h5, 'text-gray-900 mb-2')}>
-                        Current Office
-                      </h3>
-                      <p className={cn(designTokens.typography.bodySmall, 'text-gray-700')}>
-                        1/263 Toombul Rd<br />
-                        Northgate QLD 4013
-                      </p>
-                    </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-pink-600" />
                   </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Contact Details */}
-            <Card className={cn(componentPresets.card.base)}>
-              <CardContent className={designTokens.spacing.card.padding}>
-                <h3 className={cn(designTokens.typography.h5, 'text-gray-900 mb-4')}>
-                  Get In Touch
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center flex-shrink-0">
-                      <span className="text-xl">📞</span>
-                    </div>
-                    <div>
-                      <p className={cn(designTokens.typography.caption, 'text-gray-600')}>
-                        Phone
+                  <div>
+                    <h3 className="font-semibold text-gray-900 mb-2">Office Hours</h3>
+                    <div className="text-gray-600 space-y-1">
+                      <p>Monday to Friday: 9:00 AM – 4:30 PM</p>
+                      <p>Saturday: By Appointment Only</p>
+                      <p>Sunday: Closed</p>
+                      <p className="text-sm text-pink-600 mt-2">
+                        After-hours online accessibility available
                       </p>
-                      <a
-                        href="tel:0735446386"
-                        className={cn(
-                          designTokens.typography.body,
-                          'font-semibold text-gray-900 hover:text-primary-500',
-                          designTokens.transitions.base
-                        )}
-                      >
-                        07 3544 6386
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary-50 flex items-center justify-center flex-shrink-0">
-                      <span className="text-xl">✉️</span>
-                    </div>
-                    <div>
-                      <p className={cn(designTokens.typography.caption, 'text-gray-600')}>
-                        Email
-                      </p>
-                      <a
-                        href="mailto:admin@pinktax.com.au"
-                        className={cn(
-                          designTokens.typography.body,
-                          'font-semibold text-gray-900 hover:text-primary-500',
-                          designTokens.transitions.base
-                        )}
-                      >
-                        admin@pinktax.com.au
-                      </a>
                     </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
 
-            {/* Office Hours */}
-            <Card className={cn(componentPresets.card.base)}>
-              <CardContent className={designTokens.spacing.card.padding}>
-                <h3 className={cn(designTokens.typography.h5, 'text-gray-900 mb-4 flex items-center gap-2')}>
-                  <span className="text-2xl">🕐</span>
-                  Office Hours
-                </h3>
+              <div className="bg-slate-50 p-6 rounded-xl">
+                <h3 className="font-semibold text-gray-900 mb-4">Our Team</h3>
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
-                      Monday to Friday:
-                    </span>
-                    <span className={cn(designTokens.typography.bodySmall, 'font-semibold text-gray-900')}>
-                      9:00 AM – 4:30 PM
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
-                      Saturday:
-                    </span>
-                    <span className={cn(designTokens.typography.bodySmall, 'font-semibold text-gray-900')}>
-                      By Appointment Only
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
-                      Sunday:
-                    </span>
-                    <span className={cn(designTokens.typography.bodySmall, 'font-semibold text-gray-900')}>
-                      Closed
-                    </span>
-                  </div>
-                  <div className="pt-4 mt-4 border-t border-gray-200">
-                    <p className={cn(designTokens.typography.caption, 'text-gray-600')}>
-                      <strong>After-Hours Access:</strong> Online accessibility available for urgent matters
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Team Directory */}
-            <Card className={cn(componentPresets.card.colored('primary'))}>
-              <CardContent className={designTokens.spacing.card.padding}>
-                <h3 className={cn(designTokens.typography.h5, 'text-gray-900 mb-4')}>
-                  Our Team
-                </h3>
-                <div className="space-y-3">
-                  {TEAM_MEMBERS.map((member, index) => (
-                    <div key={index}>
-                      <span className={cn(designTokens.typography.bodySmall, 'font-semibold text-gray-900')}>
-                        {member.name}
-                      </span>
-                      <span className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
-                        {' '}– {member.role}
-                      </span>
-                      <br />
+                  {teamContacts.map((contact, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-gray-900">{contact.name}</p>
+                        <p className="text-sm text-gray-600">{contact.role}</p>
+                      </div>
                       <a
-                        href={`mailto:${member.email}`}
-                        className={cn(
-                          designTokens.typography.caption,
-                          'text-primary-600 hover:text-primary-700 hover:underline',
-                          designTokens.transitions.base
-                        )}
+                        href={`mailto:${contact.email}`}
+                        className="text-sm text-pink-600 hover:text-pink-700 transition-colors"
                       >
-                        {member.email}
+                        <Mail className="w-4 h-4" />
                       </a>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </div>
 
-          {/* Right Side - Contact Form */}
-          <div className="sticky top-4">
-            <ContactForm />
+            <div className="bg-white border-2 border-gray-200 rounded-xl p-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Book Your Strategy Session
+              </h2>
+              <p className="text-gray-600 mb-6 leading-relaxed">
+                Ready to explore how Pink Accounting can support your growth? Schedule a complimentary 30-minute strategy session to discuss your business needs.
+              </p>
+
+              {submitted ? (
+                <div className="bg-green-50 border-2 border-green-500 rounded-lg p-8 text-center">
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Thank You!</h3>
+                  <p className="text-gray-600">
+                    We've received your inquiry and will be in touch shortly.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        name="fullName"
+                        required
+                        value={formData.fullName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Business Name *
+                      </label>
+                      <input
+                        type="text"
+                        name="businessName"
+                        required
+                        value={formData.businessName}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Email *
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Phone *
+                      </label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        required
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Industry *
+                    </label>
+                    <select
+                      name="industry"
+                      required
+                      value={formData.industry}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                    >
+                      <option value="">Select an industry</option>
+                      <option value="professional">Professional Services</option>
+                      <option value="trade">Trade & Construction</option>
+                      <option value="healthcare">Healthcare & Wellness</option>
+                      <option value="technology">Technology & Creative</option>
+                      <option value="business">Business Services</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Annual Turnover *
+                      </label>
+                      <select
+                        name="turnover"
+                        required
+                        value={formData.turnover}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      >
+                        <option value="">Select turnover</option>
+                        <option value="under500k">Under $500K</option>
+                        <option value="500k-1m">$500K-$1M</option>
+                        <option value="1m-2m">$1M-$2M</option>
+                        <option value="2m-3m">$2M-$3M</option>
+                        <option value="3m+">$3M+</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Primary Need *
+                      </label>
+                      <select
+                        name="primaryNeed"
+                        required
+                        value={formData.primaryNeed}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      >
+                        <option value="">Select primary need</option>
+                        <option value="bookkeeping">Full Bookkeeping</option>
+                        <option value="tax">Tax Compliance Only</option>
+                        <option value="cashflow">Cashflow Management</option>
+                        <option value="advisory">Strategic Advisory</option>
+                        <option value="systems">System Setup</option>
+                        <option value="unsure">Unsure - Need Guidance</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Current Situation *
+                    </label>
+                    <select
+                      name="currentSituation"
+                      required
+                      value={formData.currentSituation}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                    >
+                      <option value="">Select current situation</option>
+                      <option value="no-accountant">No Accountant</option>
+                      <option value="switching">Switching Accountants</option>
+                      <option value="additional">Need Additional Services</option>
+                      <option value="new-business">Starting New Business</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Message
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={4}
+                      value={formData.message}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none resize-none"
+                      placeholder="Tell us more about your business and needs..."
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Preferred Contact Method *
+                      </label>
+                      <select
+                        name="contactMethod"
+                        required
+                        value={formData.contactMethod}
+                        onChange={handleChange}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      >
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Preferred Time (Optional)
+                      </label>
+                      <input
+                        type="text"
+                        name="preferredTime"
+                        value={formData.preferredTime}
+                        onChange={handleChange}
+                        placeholder="e.g., Weekday mornings"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Send className="w-5 h-5" />
+                    Send Inquiry
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </div>
-      </Section>
+      </section>
 
       {/* FAQ Section */}
       <Section variant="neutral">
@@ -348,3 +523,9 @@ export default function ContactPage() {
     </>
   );
 }
+const teamContacts = [
+  { name: 'Pinky Bui', role: 'Principal Accountant', email: 'hb@pinktax.com.au' },
+  { name: 'Jessica You', role: 'Senior Tax Accountant', email: 'jessica@pinktax.com.au' },
+  { name: 'Miftas Sriyan', role: 'Financial Accountant', email: 'miftas@pinktax.com.au' },
+  { name: 'Bonnie Gloriane', role: 'Senior Admin', email: 'bonnie@pinktax.com.au' }
+];

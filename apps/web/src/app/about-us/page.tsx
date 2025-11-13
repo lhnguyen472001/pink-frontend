@@ -6,8 +6,19 @@ import { SectionHeader } from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, designTokens, componentPresets } from '@/lib/design-tokens';
-
-
+import {
+  Target,
+  Rocket,
+  Shield,
+  BarChart3,
+  Settings,
+  Star,
+  Handshake,
+  Zap,
+  Gem,
+  TrendingUp
+} from 'lucide-react';
+import Link from 'next/link';
 
 // Leadership team data
 const LEADERSHIP = [
@@ -89,27 +100,27 @@ const VALUES = [
   {
     title: 'Quality Over Everything',
     description: 'We don\'t cut corners. Every piece of work reflects our commitment to excellence.',
-    icon: '⭐'
+    icon: Star
   },
   {
     title: 'Accessibility',
     description: 'You shouldn\'t have to wait weeks to talk to your accountant. We\'re here when you need us.',
-    icon: '🤝'
+    icon: Handshake
   },
   {
     title: 'Dedication',
     description: 'Your success is our success. We\'re invested in your growth journey, not just processing transactions.',
-    icon: '💪'
+    icon: Zap
   },
   {
     title: 'Transparency',
     description: 'Clear communication, honest advice, and no surprise fees. You always know where you stand.',
-    icon: '💎'
+    icon: Gem
   },
   {
     title: 'Continuous Improvement',
     description: 'We\'re always learning, adapting, and finding better ways to serve our clients.',
-    icon: '📈'
+    icon: TrendingUp
   }
 ];
 
@@ -117,19 +128,19 @@ const MISSION_PILLARS = [
   {
     title: 'Establishing a Culture of Proactive Compliance',
     description: 'We guide enterprises to comprehend the imperative of stringent tax and regulatory adherence. Our mandate is to transform reactive compliance behavior into a proactive discipline, resulting in the elimination of compliance risk and ensuring zero penalty exposure.',
-    icon: '🛡️',
+    icon: Shield,
     color: 'primary' as const
   },
   {
     title: 'Delivering Real-Time Profitability Visibility',
     description: 'We provide executive-level reporting on P&L and critical cash flow drivers within the current fiscal period, not merely in arrears. This enables owners to make agile, data-driven decisions that protect and optimize margin performance and enhance financial performance.',
-    icon: '📊',
+    icon: BarChart3,
     color: 'pink' as const
   },
   {
     title: 'Implementing Scalable Financial Infrastructure',
     description: 'We deploy and integrate advanced cloud-based accounting ecosystems to guarantee the structural consistency necessary for multi-site expansion and brand equity building. This systematic approach achieves maximum owner relief from operational burden.',
-    icon: '⚙️',
+    icon: Settings,
     color: 'primary' as const
   }
 ];
@@ -171,7 +182,7 @@ export default function AboutUsPage() {
             designTokens.shadows.lg
           )}>
             <CardContent className={designTokens.spacing.card.paddingLg}>
-              <div className="text-5xl mb-4" role="img" aria-label="Target">🎯</div>
+              <Target className="w-12 h-12 mb-4" style={{ color: '#ed1651' }} strokeWidth={1.5} />
               <h2 className={cn(designTokens.typography.h3, 'text-gray-900 mb-4')}>
                 Our Vision
               </h2>
@@ -186,7 +197,7 @@ export default function AboutUsPage() {
             designTokens.shadows.lg
           )}>
             <CardContent className={designTokens.spacing.card.paddingLg}>
-              <div className="text-5xl mb-4" role="img" aria-label="Rocket">🚀</div>
+              <Rocket className="w-12 h-12 mb-4" style={{ color: '#ed1651' }} strokeWidth={1.5} />
               <h2 className={cn(designTokens.typography.h3, 'text-gray-900 mb-4')}>
                 Our Mission
               </h2>
@@ -203,48 +214,49 @@ export default function AboutUsPage() {
             Three Core Pillars of Value
           </h3>
 
-          {MISSION_PILLARS.map((pillar, index) => (
-            <Card
-              key={index}
-              className={cn(
-                'overflow-hidden',
-                designTokens.shadows.lg,
-                designTokens.transitions.base,
-                'hover:shadow-2xl'
-              )}
-            >
-              <CardContent className="p-0">
-                <div className={cn(
-                  'grid md:grid-cols-[auto_1fr]',
-                  index === 1 && 'md:grid-flow-col-dense'
-                )}>
-                  <div
-                    className={cn(
-                      'p-8 flex items-center justify-center md:w-48',
-                      componentPresets.card.colored(pillar.color),
-                      index === 1 && 'md:col-start-2'
-                    )}
-                  >
-                    <div className="text-6xl" role="img" aria-label={pillar.title}>
-                      {pillar.icon}
+          {MISSION_PILLARS.map((pillar, index) => {
+            const IconComponent = pillar.icon;
+            return (
+              <Card
+                key={index}
+                className={cn(
+                  'overflow-hidden',
+                  designTokens.shadows.lg,
+                  designTokens.transitions.base,
+                  'hover:shadow-2xl'
+                )}
+              >
+                <CardContent className="p-0">
+                  <div className={cn(
+                    'grid md:grid-cols-[auto_1fr]',
+                    index === 1 && 'md:grid-flow-col-dense'
+                  )}>
+                    <div
+                      className={cn(
+                        'p-8 flex items-center justify-center md:w-48',
+                        componentPresets.card.colored(pillar.color),
+                        index === 1 && 'md:col-start-2'
+                      )}
+                    >
+                      <IconComponent className="w-16 h-16" style={{ color: '#ed1651' }} strokeWidth={1.5} />
+                    </div>
+
+                    <div className={cn(
+                      'p-8 bg-white',
+                      index === 1 && 'md:col-start-1'
+                    )}>
+                      <h4 className={cn(designTokens.typography.h4, 'text-gray-900 mb-3')}>
+                        {pillar.title}
+                      </h4>
+                      <p className={cn(designTokens.typography.body, 'text-gray-600')}>
+                        {pillar.description}
+                      </p>
                     </div>
                   </div>
-
-                  <div className={cn(
-                    'p-8 bg-white',
-                    index === 1 && 'md:col-start-1'
-                  )}>
-                    <h4 className={cn(designTokens.typography.h4, 'text-gray-900 mb-3')}>
-                      {pillar.title}
-                    </h4>
-                    <p className={cn(designTokens.typography.body, 'text-gray-600')}>
-                      {pillar.description}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </Section>
 
@@ -285,7 +297,7 @@ export default function AboutUsPage() {
                     <p className={cn(designTokens.typography.body, 'text-gray-700 font-semibold mb-3')}>
                       {member.role}
                     </p>
-                    <a
+                    <Link
                       href={`mailto:${member.email}`}
                       className={cn(
                         designTokens.typography.bodySmall,
@@ -294,7 +306,7 @@ export default function AboutUsPage() {
                       )}
                     >
                       {member.email}
-                    </a>
+                    </Link>
                   </div>
 
                   {/* Credentials Side */}
@@ -309,7 +321,8 @@ export default function AboutUsPage() {
                       {member.credentials.map((credential, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm text-gray-600">
                           <svg
-                            className="w-5 h-5 text-primary-400 mt-0.5 shrink-0"
+                            className="w-5 h-5 mt-0.5 shrink-0"
+                            style={{ color: '#ed1651' }}
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -361,10 +374,10 @@ export default function AboutUsPage() {
                     <h3 className={cn(designTokens.typography.h4, 'text-gray-900 mb-1 truncate')}>
                       {member.name}
                     </h3>
-                    <p className="text-sm font-semibold text-primary-400 mb-2">
+                    <p className="text-sm font-semibold mb-2" style={{ color: '#ed1651' }}>
                       {member.role}
                     </p>
-                    <a
+                    <Link
                       href={`mailto:${member.email}`}
                       className={cn(
                         designTokens.typography.caption,
@@ -374,7 +387,7 @@ export default function AboutUsPage() {
                       )}
                     >
                       {member.email}
-                    </a>
+                    </Link>
                     <p className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
                       {member.description}
                     </p>
@@ -391,32 +404,33 @@ export default function AboutUsPage() {
         <SectionHeader title="Our Values" />
 
         <div className={cn(designTokens.grid.cols3, designTokens.spacing.gap.md)}>
-          {VALUES.map((value, index) => (
-            <Card
-              key={index}
-              className={cn(
-                'bg-white',
-                designTokens.shadows.lg,
-                designTokens.transitions.base,
-                'hover:shadow-2xl hover:-translate-y-1'
-              )}
-            >
-              <CardContent className={cn(
-                designTokens.spacing.card.padding,
-                'text-center'
-              )}>
-                <div className="text-5xl mb-4" role="img" aria-label={value.title}>
-                  {value.icon}
-                </div>
-                <h3 className={cn(designTokens.typography.h5, 'text-gray-900 mb-3')}>
-                  {value.title}
-                </h3>
-                <p className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
-                  {value.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+          {VALUES.map((value, index) => {
+            const IconComponent = value.icon;
+            return (
+              <Card
+                key={index}
+                className={cn(
+                  'bg-white',
+                  designTokens.shadows.lg,
+                  designTokens.transitions.base,
+                  'hover:shadow-2xl hover:-translate-y-1'
+                )}
+              >
+                <CardContent className={cn(
+                  designTokens.spacing.card.padding,
+                  'text-center'
+                )}>
+                  <IconComponent className="w-12 h-12 mb-4 mx-auto" style={{ color: '#ed1651' }} strokeWidth={1.5} />
+                  <h3 className={cn(designTokens.typography.h5, 'text-gray-900 mb-3')}>
+                    {value.title}
+                  </h3>
+                  <p className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
+                    {value.description}
+                  </p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </Section>
 
