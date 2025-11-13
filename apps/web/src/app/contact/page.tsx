@@ -150,11 +150,11 @@ export default function ContactPage() {
               <div className="space-y-6 mb-8">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-6 h-6 text-pink-600" />
+                    <Phone className="w-6 h-6 text-[#ed1651]" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                    <a href="tel:0735446386" className="text-gray-600 hover:text-pink-600 transition-colors">
+                    <a href="tel:0735446386" className="text-gray-600 hover:text-[#ed1651] transition-colors">
                       07 3544 6386
                     </a>
                   </div>
@@ -162,11 +162,11 @@ export default function ContactPage() {
 
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-6 h-6 text-pink-600" />
+                    <Mail className="w-6 h-6 text-[#ed1651]" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                    <a href="mailto:admin@pinktax.com.au" className="text-gray-600 hover:text-pink-600 transition-colors">
+                    <a href="mailto:admin@pinktax.com.au" className="text-gray-600 hover:text-[#ed1651] transition-colors">
                       admin@pinktax.com.au
                     </a>
                   </div>
@@ -174,7 +174,7 @@ export default function ContactPage() {
 
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-pink-600" />
+                    <MapPin className="w-6 h-6 text-[#ed1651]" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">Current Office</h3>
@@ -194,7 +194,7 @@ export default function ContactPage() {
 
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Clock className="w-6 h-6 text-pink-600" />
+                    <Clock className="w-6 h-6 text-[#ed1651]" />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 mb-2">Office Hours</h3>
@@ -202,7 +202,7 @@ export default function ContactPage() {
                       <p>Monday to Friday: 9:00 AM – 4:30 PM</p>
                       <p>Saturday: By Appointment Only</p>
                       <p>Sunday: Closed</p>
-                      <p className="text-sm text-pink-600 mt-2">
+                      <p className="text-sm text-[#ed1651] mt-2">
                         After-hours online accessibility available
                       </p>
                     </div>
@@ -221,7 +221,7 @@ export default function ContactPage() {
                       </div>
                       <a
                         href={`mailto:${contact.email}`}
-                        className="text-sm text-pink-600 hover:text-pink-700 transition-colors"
+                        className="text-sm text-[#ed1651] hover:text-pink-700 transition-colors"
                       >
                         <Mail className="w-4 h-4" />
                       </a>
@@ -264,7 +264,7 @@ export default function ContactPage() {
                         required
                         value={formData.fullName}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       />
                     </div>
                     <div>
@@ -277,7 +277,7 @@ export default function ContactPage() {
                         required
                         value={formData.businessName}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       />
                     </div>
                   </div>
@@ -293,7 +293,7 @@ export default function ContactPage() {
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       />
                     </div>
                     <div>
@@ -306,7 +306,7 @@ export default function ContactPage() {
                         required
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       />
                     </div>
                   </div>
@@ -320,7 +320,7 @@ export default function ContactPage() {
                       required
                       value={formData.industry}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                     >
                       <option value="">Select an industry</option>
                       <option value="professional">Professional Services</option>
@@ -342,7 +342,7 @@ export default function ContactPage() {
                         required
                         value={formData.turnover}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       >
                         <option value="">Select turnover</option>
                         <option value="under500k">Under $500K</option>
@@ -361,7 +361,7 @@ export default function ContactPage() {
                         required
                         value={formData.primaryNeed}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       >
                         <option value="">Select primary need</option>
                         <option value="bookkeeping">Full Bookkeeping</option>
@@ -383,7 +383,7 @@ export default function ContactPage() {
                       required
                       value={formData.currentSituation}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                     >
                       <option value="">Select current situation</option>
                       <option value="no-accountant">No Accountant</option>
@@ -402,7 +402,7 @@ export default function ContactPage() {
                       rows={4}
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none resize-none"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none resize-none"
                       placeholder="Tell us more about your business and needs..."
                     />
                   </div>
@@ -417,7 +417,7 @@ export default function ContactPage() {
                         required
                         value={formData.contactMethod}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       >
                         <option value="email">Email</option>
                         <option value="phone">Phone</option>
@@ -433,14 +433,14 @@ export default function ContactPage() {
                         value={formData.preferredTime}
                         onChange={handleChange}
                         placeholder="e.g., Weekday mornings"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ed1651] focus:border-transparent outline-none"
                       />
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors flex items-center justify-center gap-2"
+                    className="w-full bg-[#ed1651] text-white px-6 py-3 rounded-lg font-semibold hover:bg-pink-700 transition-colors flex items-center justify-center gap-2"
                   >
                     <Send className="w-5 h-5" />
                     Send Inquiry

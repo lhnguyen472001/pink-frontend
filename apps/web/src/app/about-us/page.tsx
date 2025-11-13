@@ -516,7 +516,7 @@ export default function AboutUsPage() {
             The Pink Accounting Difference
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div className="border-l-4 border-pink-500 pl-3 sm:pl-4">
+            <div className="border-l-4 border-[#ed1651] pl-3 sm:pl-4">
               <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 Hybrid Team Power
               </h4>
@@ -524,7 +524,7 @@ export default function AboutUsPage() {
                 Australian professionals + offshore specialists for premium, cost-effective service.
               </p>
             </div>
-            <div className="border-l-4 border-pink-500 pl-3 sm:pl-4">
+            <div className="border-l-4 border-[#ed1651] pl-3 sm:pl-4">
               <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 Service Business Specialists
               </h4>
@@ -532,7 +532,7 @@ export default function AboutUsPage() {
                 We understand the unique challenges of time-based revenue and project cashflow cycles.
               </p>
             </div>
-            <div className="border-l-4 border-pink-500 pl-3 sm:pl-4">
+            <div className="border-l-4 border-[#ed1651] pl-3 sm:pl-4">
               <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 SEQ Focused
               </h4>
@@ -540,7 +540,7 @@ export default function AboutUsPage() {
                 Local expertise with deep understanding of the Queensland business landscape.
               </p>
             </div>
-            <div className="border-l-4 border-pink-500 pl-3 sm:pl-4">
+            <div className="border-l-4 border-[#ed1651] pl-3 sm:pl-4">
               <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">
                 Always Accessible
               </h4>

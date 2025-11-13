@@ -170,7 +170,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="hidden md:block order-1 lg:order-2">
+            <div className="hidden lg:block order-1 lg:order-2">
               <Image
                 src={section1}
                 alt="Brisbane accounting team helping local businesses"
@@ -184,7 +184,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="absolute inset-0 md:hidden">
+        <div className="absolute inset-0 lg:hidden">
           <Image
             src={section1}
             alt="Brisbane accounting team helping local businesses"
@@ -203,7 +203,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {differentiators.map((item, index) => (
               <div key={index} className="text-center px-2 sm:px-4">
-                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-pink-600 mb-2">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#ed1651] mb-2">
                   {item.stat}
                 </div>
                 <div className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
@@ -231,7 +231,7 @@ export default function Home() {
             return (
               <div key={index} className="bg-white p-4 sm:p-5 md:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                 <div className="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
-                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" />
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#ed1651]" />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
                   {benefit.title}
@@ -315,9 +315,8 @@ export default function Home() {
             >
               <CardContent className="p-0">
                 <h3 className={cn(
-                  designTokens.typography.h4,
                   'text-gray-900 mb-3 sm:mb-4',
-                  'text-lg sm:text-xl'
+                  'text-xl md:text-2xl  font-bold'
                 )}>
                   {item.title}
                 </h3>

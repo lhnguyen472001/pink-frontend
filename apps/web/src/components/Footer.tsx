@@ -8,8 +8,8 @@ type Props = {}
 
 function Footer({ }: Props) {
     return (
-        <footer className='bg-gradient-to-br from-gray-50 to-gray-100 border-t border-gray-200'>
-            <div className='max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16'>
+        <footer className='bg-linear-to-br from-gray-50 to-gray-100 border-t border-gray-200'>
+            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16'>
                 {/* Main Footer Content */}
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-10 lg:mb-12'>
                     {/* Brand Section */}
@@ -41,7 +41,7 @@ function Footer({ }: Props) {
                             <span className='px-2 sm:px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-[10px] sm:text-xs font-semibold'>
                                 98% Retention
                             </span>
-                            <span className='px-2 sm:px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-[10px] sm:text-xs font-semibold'>
+                            <span className='px-2 sm:px-3 py-1 bg-pink-100 text-[#ed1651] rounded-full text-[10px] sm:text-xs font-semibold'>
                                 15+ Years
                             </span>
                         </div>
@@ -62,7 +62,7 @@ function Footer({ }: Props) {
                                 <li key={link.href}>
                                     <Link
                                         href={link.href}
-                                        className='text-xs sm:text-sm text-gray-600 hover:text-pink-600 transition-colors inline-block'
+                                        className='text-xs sm:text-sm text-gray-600 hover:text-[#ed1651] transition-colors inline-block'
                                     >
                                         {link.label}
                                     </Link>
@@ -104,12 +104,12 @@ function Footer({ }: Props) {
                         <div className='space-y-2 sm:space-y-3 mb-4 sm:mb-6'>
                             {/* Phone */}
                             <div className='flex items-start gap-2'>
-                                <svg className='w-4 h-4 sm:w-5 sm:h-5 text-pink-500 flex-shrink-0 mt-0.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                <svg className='w-4 h-4 sm:w-5 sm:h-5 text-[#ed1651] shrink-0 mt-0.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                                     <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z' />
                                 </svg>
                                 <a
                                     href='tel:0735446386'
-                                    className='text-xs sm:text-sm text-gray-600 hover:text-pink-600 transition-colors'
+                                    className='text-xs sm:text-sm text-gray-600 hover:text-[#ed1651] transition-colors'
                                 >
                                     07 3544 6386
                                 </a>
@@ -117,12 +117,12 @@ function Footer({ }: Props) {
 
                             {/* Email */}
                             <div className='flex items-start gap-2'>
-                                <svg className='w-4 h-4 sm:w-5 sm:h-5 text-pink-500 flex-shrink-0 mt-0.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                <svg className='w-4 h-4 sm:w-5 sm:h-5 text-[#ed1651] shrink-0 mt-0.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                                     <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' />
                                 </svg>
                                 <a
                                     href='mailto:admin@pinktax.com.au'
-                                    className='text-xs sm:text-sm text-gray-600 hover:text-pink-600 transition-colors break-all'
+                                    className='text-xs sm:text-sm text-gray-600 hover:text-[#ed1651] transition-colors break-all'
                                 >
                                     admin@pinktax.com.au
                                 </a>
@@ -130,7 +130,7 @@ function Footer({ }: Props) {
 
                             {/* Address */}
                             <div className='flex items-start gap-2'>
-                                <svg className='w-4 h-4 sm:w-5 sm:h-5 text-pink-500 flex-shrink-0 mt-0.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+                                <svg className='w-4 h-4 sm:w-5 sm:h-5 text-[#ed1651] shrink-0 mt-0.5' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
                                     <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z' />
                                     <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 11a3 3 0 11-6 0 3 3 0 016 0z' />
                                 </svg>
@@ -144,7 +144,7 @@ function Footer({ }: Props) {
                         {/* CTA Button */}
                         <Link
                             href='/contact'
-                            className='inline-block w-full bg-gradient-to-r from-pink-500 to-pink-600 text-white text-center py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold text-xs sm:text-sm hover:from-pink-600 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
+                            className='inline-block w-full bg-linear-to-r from-[#ed1651] to-[#ed1651] text-white text-center py-2.5 sm:py-3 px-3 sm:px-4 rounded-lg font-semibold text-xs sm:text-sm hover:from-[#ed1651] hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5'
                         >
                             Book Strategy Session
                         </Link>
@@ -160,19 +160,19 @@ function Footer({ }: Props) {
                         <div className='flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6'>
                             <Link
                                 href='/privacy'
-                                className='text-gray-600 hover:text-pink-600 transition-colors text-xs sm:text-sm'
+                                className='text-gray-600 hover:text-[#ed1651] transition-colors text-xs sm:text-sm'
                             >
                                 Privacy Policy
                             </Link>
                             <Link
                                 href='/terms'
-                                className='text-gray-600 hover:text-pink-600 transition-colors text-xs sm:text-sm'
+                                className='text-gray-600 hover:text-[#ed1651] transition-colors text-xs sm:text-sm'
                             >
                                 Terms of Service
                             </Link>
                             <Link
                                 href='/disclaimer'
-                                className='text-gray-600 hover:text-pink-600 transition-colors text-xs sm:text-sm'
+                                className='text-gray-600 hover:text-[#ed1651] transition-colors text-xs sm:text-sm'
                             >
                                 Disclaimer
                             </Link>
