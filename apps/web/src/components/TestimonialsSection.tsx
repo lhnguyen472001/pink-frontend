@@ -51,7 +51,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
             {/* Author */}
             <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
               {testimonial.avatar ? (
-                <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-500/20">
+                <div className="relative w-14 h-14 rounded-full overflow-hidden ring-2 ring-blue-500/20">
                   <Image
                     src={testimonial?.avatar || ""}
                     alt={testimonial.author}
@@ -62,7 +62,7 @@ export default function TestimonialsSection({ testimonials }: TestimonialsSectio
               ) : (
                 <div className={cn(
                   "w-12 h-12 rounded-full",
-                  "bg-gradient-to-br from-blue-500 to-purple-600",
+                  "bg-linear-to-br from-blue-500 to-purple-600",
                   "flex items-center justify-center",
                   "ring-2 ring-blue-500/20"
                 )}>

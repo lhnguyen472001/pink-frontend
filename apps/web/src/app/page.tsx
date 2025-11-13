@@ -8,18 +8,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn, designTokens, componentPresets } from '@/lib/design-tokens';
 
 import section1 from '@public/home/section1.jpg';
-import icon1 from '@public/home/time.svg';
-import image1 from "@public/home/image1.png"
-import image2 from "@public/home/image2.png"
-import icon2 from '@public/home/kn.svg';
-import icon3 from '@public/home/mess.svg';
-import icon4 from '@public/home/global.svg';
-import imgDefault from '@public/home/test.jpg';
+import imgCeo from '@public/ceo.jpg';
 import SectionHeader from '@/components/SectionHeader';
 import type { Metadata } from 'next';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { useEffect, useState } from 'react';
 import { Check, CheckCircle, Clock, TrendingUp, Users, X } from 'lucide-react';
+import Link from 'next/link';
 
 // Dynamic imports for performance
 const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), {
@@ -29,23 +24,23 @@ const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), 
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'));
 
 
- const differentiators = [
-    {
-      stat: '98%',
-      label: 'Client Retention Since 2020',
-      description: 'Our clients stay because we deliver exceptional quality, accessibility, and genuine dedication to their success.'
-    },
-    {
-      stat: '15+',
-      label: 'Years of Financial Expertise',
-      description: 'Led by Pinky Bui, a qualified accountant with a Master of Professional Accounting.'
-    },
-    {
-      stat: '24/7',
-      label: 'Accessible When You Need Us',
-      description: 'Available during business hours, Saturdays by appointment, and accessible online after hours.'
-    }
-  ];
+const differentiators = [
+  {
+    stat: '98%',
+    label: 'Client Retention Since 2020',
+    description: 'Our clients stay because we deliver exceptional quality, accessibility, and genuine dedication to their success.'
+  },
+  {
+    stat: '15+',
+    label: 'Years of Financial Expertise',
+    description: 'Led by Pinky Bui, a qualified accountant with a Master of Professional Accounting.'
+  },
+  {
+    stat: '24/7',
+    label: 'Accessible When You Need Us',
+    description: 'Available during business hours, Saturdays by appointment, and accessible online after hours.'
+  }
+];
 
 const benefits = [
   {
@@ -136,29 +131,46 @@ export default function Home() {
       <JsonLd data={organizationSchema} />
       <JsonLd data={breadcrumbSchema} />
 
-      <Section variant="secondary" size="lg" container="none">
+      {/* Hero Section - Optimized spacing */}
+      <Section variant="secondary" size="lg" container="none" className='relative'>
         <div className={designTokens.spacing.containerNarrow}>
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            <div className="flex flex-col gap-6 lg:gap-8 order-2 lg:order-1">
-              <h1 className={cn(designTokens.typography.h1, 'text-gray-900')}>
-                Brisbane-based accounting firm helping local businesses thrive
-              </h1>
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8 lg:gap-16 items-center">
+            <div className="relative aspect-square lg:aspect-auto flex flex-col gap-4 sm:gap-6 lg:gap-8 order-2 lg:order-1 rounded-lg lg:rounded-none overflow-hidden">
 
-              <p className={cn(designTokens.typography.body, 'text-gray-700')}>
-                Your Local Growth Partner for South-East Queensland businesses ready to grow beyond $500K
-              </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button className={cn(componentPresets.button.primary, 'bg-[#ed1651]')}>
-                  <span className="flex flex-col items-start">
-                    <span>Book Your Strategy Session</span>
-                    <span className="font-normal text-sm">Download Financial Health Checklist</span>
-                  </span>
-                </Button>
+              <div className="relative z-10 p-4 sm:p-6 md:p-8 lg:p-0 flex flex-col justify-center h-full gap-4 sm:gap-6 lg:gap-8">
+                <h1 className={cn(
+                  designTokens.typography.h1,
+                  'text-white lg:text-gray-900',
+                  'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'
+                )}>
+                  Brisbane-based accounting firm helping local businesses thrive
+                </h1>
+
+                <p className={cn(
+                  designTokens.typography.body,
+                  'text-white/90 lg:text-gray-700',
+                  'text-sm sm:text-base md:text-lg'
+                )}>
+                  Your Local Growth Partner for South-East Queensland businesses ready to grow beyond $500K
+                </p>
+
+                <Link href={"/contact"} className="flex w-fit flex-col sm:flex-row gap-3 sm:gap-4">
+                  <Button className={cn(
+                    componentPresets.button.primary,
+                    'bg-[#ed1651] cursor-pointer shadow-lg',
+                    'text-sm sm:text-base px-4 sm:px-6 py-3 sm:py-4'
+                  )}>
+                    <span className="flex flex-col items-start">
+                      <span>Book Your Strategy Session</span>
+                      <span className="font-normal text-xs sm:text-sm">Download Financial Health Checklist</span>
+                    </span>
+                  </Button>
+                </Link>
               </div>
             </div>
 
-            <div className="order-1 lg:order-2">
+            <div className="hidden md:block order-1 lg:order-2">
               <Image
                 src={section1}
                 alt="Brisbane accounting team helping local businesses"
@@ -167,62 +179,64 @@ export default function Home() {
                 height={600}
                 priority
                 placeholder="blur"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="50vw"
               />
             </div>
           </div>
         </div>
+        <div className="absolute inset-0 md:hidden">
+          <Image
+            src={section1}
+            alt="Brisbane accounting team helping local businesses"
+            className="w-full h-full object-cover"
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 0vw"
+          />
+          <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/60 to-black/70" />
+        </div>
       </Section>
 
-
+      {/* Stats Section - Optimized spacing */}
       <Section className='w-full bg-white!'>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             {differentiators.map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="text-5xl font-bold text-pink-600 mb-2">{item.stat}</div>
-                <div className="text-lg font-semibold text-gray-900 mb-2">{item.label}</div>
-                <p className="text-gray-600 text-sm">{item.description}</p>
+              <div key={index} className="text-center px-2 sm:px-4">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-pink-600 mb-2">
+                  {item.stat}
+                </div>
+                <div className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
+                  {item.label}
+                </div>
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
-        {/* <div className="flex justify-center gap-2 mt-8">
-          {STATS.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => api?.scrollTo(index)}
-              className={cn(
-                'transition-all duration-300 rounded-full',
-                index === current
-                  ? 'bg-gray-800 w-8 h-2'
-                  : 'bg-gray-300 w-2 h-2 hover:bg-gray-400'
-              )}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div> */}
       </Section>
 
-      {/* Value Propositions */}
+      {/* Benefits Section - Optimized grid and spacing */}
       <Section variant="neutral">
         <SectionHeader
           title="Why Growing Businesses Choose Pink Accounting"
           description="Strategic financial management that scales with your business"
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-pink-600" />
+              <div key={index} className="bg-white p-4 sm:p-5 md:p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-pink-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   {benefit.description}
                 </p>
               </div>
@@ -231,7 +245,7 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Services Carousel */}
+      {/* Services Carousel - Optimized table for mobile */}
       <Section>
         <SectionHeader
           title="Our Service Packages"
@@ -239,26 +253,22 @@ export default function Home() {
         />
         <ServicesCarousel />
 
-        {/* <div className="flex flex-col items-center gap-6 mt-12">
-          <p className={cn(designTokens.typography.body, 'text-gray-600 text-center max-w-3xl')}>
-            All packages available as monthly investments. Contact us to discuss unbundled services tailored to your specific needs.
-          </p>
-          <Button className={componentPresets.button.primary}>
-            Schedule a Consultation to Discuss Your Needs
-          </Button>
-        </div> */}
-        <div className="bg-white rounded-xl mt-10 shadow-lg border-2 border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-lg sm:rounded-xl mt-8 sm:mt-10 shadow-lg border-2 border-gray-200 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-slate-50 border-b-2 border-gray-200">
                 <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 min-w-[300px]">
+                  <th className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-gray-900 min-w-[200px] sm:min-w-[250px] md:min-w-[300px] sticky left-0 bg-slate-50 z-10">
                     Features
                   </th>
                   {packageDetails.map((pkg, index) => (
-                    <th key={index} className="px-6 py-4 text-center min-w-[140px]">
-                      <div className="text-lg font-bold text-gray-900">{pkg.name}</div>
-                      <div className="text-xs text-gray-600 mt-1">{pkg.description}</div>
+                    <th key={index} className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center min-w-[100px] sm:min-w-[120px] md:min-w-[140px]">
+                      <div className="text-sm sm:text-base md:text-lg font-bold text-gray-900">
+                        {pkg.name}
+                      </div>
+                      <div className="text-[10px] sm:text-xs text-gray-600 mt-1">
+                        {pkg.description}
+                      </div>
                     </th>
                   ))}
                 </tr>
@@ -266,16 +276,18 @@ export default function Home() {
               <tbody className="divide-y divide-gray-200">
                 {allFeatures.map((feature, index) => (
                   <tr key={index} className="hover:bg-slate-50 transition-colors">
-                    <td className="px-6 py-4 text-sm text-gray-700">{feature}</td>
+                    <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-700 sticky left-0 bg-white z-10">
+                      {feature}
+                    </td>
                     {packageDetails.map((pkg, pkgIndex) => (
-                      <td key={pkgIndex} className="px-6 py-4 text-center">
+                      <td key={pkgIndex} className="px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-center">
                         {pkg.features[feature as keyof typeof pkg.features] ? (
                           <div className="flex justify-center">
-                            <Check className="w-5 h-5 text-[#ed1651]" />
+                            <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#ed1651]" />
                           </div>
                         ) : (
                           <div className="flex justify-center">
-                            <X className="w-5 h-5 text-gray-300" />
+                            <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-300" />
                           </div>
                         )}
                       </td>
@@ -288,24 +300,32 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Who We Serve */}
+      {/* Who We Serve - Optimized cards */}
       <Section variant="neutral">
         <SectionHeader title="Who We Serve Best" />
 
-        <div className={cn(designTokens.grid.cols2, designTokens.spacing.gap.md)}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
           {WHO_WE_SERVE.map((item, index) => (
             <Card
               key={index}
               className={cn(
                 componentPresets.card.interactive,
-                designTokens.spacing.card.padding
+                'p-4 sm:p-5 md:p-6'
               )}
             >
               <CardContent className="p-0">
-                <h3 className={cn(designTokens.typography.h4, 'text-gray-900 mb-4')}>
+                <h3 className={cn(
+                  designTokens.typography.h4,
+                  'text-gray-900 mb-3 sm:mb-4',
+                  'text-lg sm:text-xl'
+                )}>
                   {item.title}
                 </h3>
-                <p className={cn(designTokens.typography.bodySmall, 'text-gray-600')}>
+                <p className={cn(
+                  designTokens.typography.bodySmall,
+                  'text-gray-600',
+                  'text-sm sm:text-base leading-relaxed'
+                )}>
                   {item.description}
                 </p>
               </CardContent>
@@ -320,46 +340,74 @@ export default function Home() {
         <TestimonialsSection testimonials={TESTIMONIALS} />
       </Section>
 
-      {/* Our Story */}
+      {/* Our Story - Optimized layout */}
       <Section>
         <SectionHeader
           title="Our Story"
           description="How Pink Accounting started during COVID-19"
         />
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center mb-8 sm:mb-10 md:mb-12">
           <Card className={cn(
             'bg-linear-to-br from-secondary-50 to-secondary-100',
             'border-none',
             designTokens.shadows.lg,
-            designTokens.spacing.card.paddingLg
+            'p-6 sm:p-8 md:p-10'
           )}>
             <CardContent className="p-0 text-center">
-              <div className="w-32 h-32 mx-auto bg-linear-to-br from-cyan-400 to-teal-400 rounded-full flex items-center justify-center mb-6">
-                <span className="text-6xl" role="img" aria-label="Pink flower">🌸</span>
+              <div className="w-30 h-30 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden mb-4 sm:mb-6 shadow-lg">
+                <Image
+                  src={imgCeo}
+                  alt="Pink Accounting founding story"
+                  width={128}
+                  height={128}
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="text-6xl font-bold text-[#ed1651] mb-2">2020</div>
-              <p className={cn(designTokens.typography.body, 'text-gray-700 font-medium')}>
+              <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#ed1651] mb-2">
+                2020
+              </div>
+              <p className={cn(
+                designTokens.typography.body,
+                'text-gray-700 font-medium',
+                'text-sm sm:text-base'
+              )}>
                 Founded during COVID-19
               </p>
             </CardContent>
           </Card>
 
-          <div className="space-y-6">
-            <div className="border-l-4 border-black pl-6">
-              <h3 className={cn(designTokens.typography.h3, 'text-gray-900 mb-3')}>
+          <div className="space-y-4 sm:space-y-6">
+            <div className="border-l-4 border-black pl-4 sm:pl-6">
+              <h3 className={cn(
+                designTokens.typography.h3,
+                'text-gray-900 mb-2 sm:mb-3',
+                'text-xl sm:text-2xl md:text-3xl'
+              )}>
                 Born from Challenge
               </h3>
-              <p className={cn(designTokens.typography.body, 'text-gray-600')}>
+              <p className={cn(
+                designTokens.typography.body,
+                'text-gray-600',
+                'text-sm sm:text-base leading-relaxed'
+              )}>
                 Founded in 2020 during the challenging COVID-19 period, Pink Accounting & Tax Solutions was born from a mission to help South-East Queensland business owners navigate uncertainty and emerge stronger.
               </p>
             </div>
 
-            <div className="border-l-4 border-black pl-6">
-              <h3 className={cn(designTokens.typography.h3, 'text-gray-900 mb-3')}>
+            <div className="border-l-4 border-black pl-4 sm:pl-6">
+              <h3 className={cn(
+                designTokens.typography.h3,
+                'text-gray-900 mb-2 sm:mb-3',
+                'text-xl sm:text-2xl md:text-3xl'
+              )}>
                 Evolved with Purpose
               </h3>
-              <p className={cn(designTokens.typography.body, 'text-gray-600')}>
+              <p className={cn(
+                designTokens.typography.body,
+                'text-gray-600',
+                'text-sm sm:text-base leading-relaxed'
+              )}>
                 What started as supporting businesses through crisis has evolved into a specialised practice helping growth-focused service-based companies scale with confidence.
               </p>
             </div>
@@ -370,18 +418,26 @@ export default function Home() {
         <Card className={cn(
           'bg-white border-2 border-[#ed1651]',
           designTokens.shadows.xl,
-          designTokens.spacing.card.paddingLg
+          'p-6 sm:p-8 md:p-10 lg:p-12'
         )}>
           <CardContent className="p-0 text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#ed1651] rounded-full mb-6">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-[#ed1651] rounded-full mb-4 sm:mb-6">
+              <svg className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className={cn(designTokens.typography.h2, 'text-gray-900 mb-4')}>
+            <h3 className={cn(
+              designTokens.typography.h2,
+              'text-gray-900 mb-3 sm:mb-4',
+              'text-xl sm:text-2xl md:text-3xl lg:text-4xl'
+            )}>
               Our Promise
             </h3>
-            <p className={cn(designTokens.typography.lead, 'text-gray-600 max-w-3xl mx-auto')}>
+            <p className={cn(
+              designTokens.typography.lead,
+              'text-gray-600 max-w-3xl mx-auto',
+              'text-sm sm:text-base md:text-lg leading-relaxed px-4'
+            )}>
               Quality work, accessible service, and dedicated partnership at every stage of your growth journey.
             </p>
           </CardContent>

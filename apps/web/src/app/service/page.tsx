@@ -8,10 +8,12 @@ import { cn, designTokens, componentPresets } from '@/lib/design-tokens';
 import {
     BookOpen, Briefcase, Lightbulb, Settings, Shield, TrendingUp, Hammer, Heart, Laptop, Target
 } from 'lucide-react';
-
+import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import { useEffect, useState } from 'react';
-
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import serviceImg from "@public/service.jpg"
+import Image from 'next/image';
 const SERVICES = [
     {
         id: 1,
@@ -122,6 +124,7 @@ const SERVICES = [
         icon: "👥"
     }
 ];
+
 const INDUSTRIES = [
     {
         title: "Professional Services",
@@ -149,6 +152,7 @@ const INDUSTRIES = [
         icon: Target
     }
 ];
+
 const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Services', url: '/service' },
@@ -167,7 +171,12 @@ const serviceSchemas = SERVICES.map(service =>
 export default function ServicesPage() {
     const [api, setApi] = useState<any>()
     const [current, setCurrent] = useState(0)
-
+    const autoplayPlugin = useRef(
+        Autoplay({
+            delay: 3000,
+            stopOnInteraction: true
+        })
+    )
     useEffect(() => {
         if (!api) return
 
@@ -177,6 +186,7 @@ export default function ServicesPage() {
             setCurrent(api.selectedScrollSnap())
         })
     }, [api])
+
     return (
         <>
             {/* Structured Data */}
@@ -185,66 +195,90 @@ export default function ServicesPage() {
                 <JsonLd key={index} data={schema} />
             ))}
 
-            {/* Hero Section */}
-            <Section variant="hero" size="lg">
-                <div className="text-center">
-                    <h1 className={cn(designTokens.typography.h1, 'text-gray-900 mb-6')}>
+            {/* Hero Section - Optimized */}
+            <Section variant="hero" size="lg" className="relative">
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src={serviceImg}
+                        alt="Financial services background"
+                        fill
+                        className="object-cover"
+                        priority
+                        quality={85}
+                    />
+                    {/* Overlay with blur effect */}
+                    <div className="absolute inset-0 bg-white/10" />
+                </div>
+                <div className="text-center relative z-10 px-4">
+                    <h1 className={cn(
+                        designTokens.typography.h1,
+                        'text-gray-900 mb-4 sm:mb-6',
+                        'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'
+                    )}>
                         Comprehensive Financial Solutions for Growing Businesses
                     </h1>
-                    <p className={cn(designTokens.typography.lead, 'text-gray-700 max-w-3xl mx-auto mb-8')}>
+                    <p className={cn(
+                        designTokens.typography.lead,
+                        'text-gray-700 max-w-3xl mx-auto mb-6 sm:mb-8',
+                        'text-sm sm:text-base md:text-lg'
+                    )}>
                         "After implementing our cashflow system, one of our café clients reduced debt by 30% in 6 months"
                     </p>
-                    <Button className={componentPresets.button.primary}>
-                        Schedule Your Free Consultation
-                    </Button>
+                    <Link href="/contact">
+                        <Button className={cn(
+                            componentPresets.button.primary,
+                            'text-sm sm:text-base px-6 sm:px-8 cursor-pointer bg-[#ed1651] py-3 sm:py-4'
+                        )}>
+                            Schedule Your Free Consultation
+                        </Button>
+                    </Link>
                 </div>
             </Section>
 
-            {/* Services Grid */}
-            <section className="py-20">
+            {/* Services Grid - Optimized */}
+            <section className="py-12 sm:py-16 md:py-20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="space-y-16">
+                    <div className="space-y-12 sm:space-y-14 md:space-y-16">
                         {services.map((service, index) => {
                             const Icon = service.icon;
                             return (
                                 <div
                                     key={index}
-                                    className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+                                    className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center"
                                 >
-                                    <div>
-                                        <div className="flex items-center gap-4 mb-6">
-                                            <div className="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center">
-                                                <Icon className="w-7 h-7 text-pink-600" />
+                                    <div className='flex h-full flex-col justify-between'>
+                                        <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-pink-100 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                                <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-pink-600" />
                                             </div>
                                             <div>
-                                                <h2 className="text-3xl font-bold text-gray-900">
+                                                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
                                                     {service.title}
                                                 </h2>
-                                                <p className="text-pink-600 font-semibold mt-1">
+                                                <p className="text-pink-600 font-semibold mt-1 text-sm sm:text-base">
                                                     {service.subtitle}
                                                 </p>
                                             </div>
                                         </div>
-                                        <p className="text-gray-700 leading-relaxed mb-6">
+                                        <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6">
                                             {service.description}
                                         </p>
-                                        <div className="bg-slate-50 p-6 rounded-xl mb-6">
-                                            <p className="text-sm font-semibold text-gray-900 mb-2">Investment:</p>
-                                            <p className="text-gray-700">{service.investment}</p>
+                                        <div className="bg-slate-50 p-4 sm:p-6 rounded-lg sm:rounded-xl">
+                                            <p className="text-xs sm:text-sm font-semibold text-gray-900 mb-2">Investment:</p>
+                                            <p className="text-sm sm:text-base text-gray-700">{service.investment}</p>
                                         </div>
-
                                     </div>
 
-                                    <div className="bg-white border-2 border-gray-200 rounded-xl p-8">
-                                        <h3 className="text-xl font-semibold text-gray-900 mb-6">
+                                    <div className="bg-white border-2 border-gray-200 rounded-lg sm:rounded-xl p-5 sm:p-6 md:p-8">
+                                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">
                                             What We Handle:
                                         </h3>
-                                        <ul className="space-y-4">
+                                        <ul className="space-y-3 sm:space-y-4">
                                             {service.features.map((feature, idx) => (
-                                                <li key={idx} className="flex items-start gap-3">
-                                                    <div className="w-6 h-6 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <li key={idx} className="flex items-start gap-2 sm:gap-3">
+                                                    <div className="w-5 h-5 sm:w-6 sm:h-6 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                                                         <svg
-                                                            className="w-4 h-4 text-pink-600"
+                                                            className="w-3 h-3 sm:w-4 sm:h-4 text-pink-600"
                                                             fill="none"
                                                             viewBox="0 0 24 24"
                                                             stroke="currentColor"
@@ -257,7 +291,7 @@ export default function ServicesPage() {
                                                             />
                                                         </svg>
                                                     </div>
-                                                    <span className="text-gray-700 leading-relaxed">
+                                                    <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
                                                         {feature}
                                                     </span>
                                                 </li>
@@ -271,17 +305,18 @@ export default function ServicesPage() {
                 </div>
             </section>
 
-            <section className="py-20 bg-slate-50">
+            {/* Why Specialise Section - Optimized */}
+            <section className="py-12 sm:py-16 md:py-20 bg-slate-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 text-center">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8 text-center px-4">
                             Why Specialise in Service-Based Businesses?
                         </h2>
-                        <p className="text-xl text-gray-600 mb-12 text-center">
+                        <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 sm:mb-10 md:mb-12 text-center px-4">
                             We speak your language and understand your unique challenges
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
                             {[
                                 {
                                     title: 'Time-Based Revenue Models',
@@ -308,11 +343,11 @@ export default function ServicesPage() {
                                     description: 'Work-in-progress can tie up significant capital. We help you manage and optimise this critical metric.'
                                 }
                             ].map((item, index) => (
-                                <div key={index} className="bg-white p-6 rounded-xl shadow-sm">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                                <div key={index} className="bg-white p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl shadow-sm">
+                                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
                                         {item.title}
                                     </h3>
-                                    <p className="text-gray-600 leading-relaxed">
+                                    <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                                         {item.description}
                                     </p>
                                 </div>
@@ -322,7 +357,7 @@ export default function ServicesPage() {
                 </div>
             </section>
 
-            {/* Industries */}
+            {/* Industries - Optimized */}
             <Section>
                 <SectionHeader title="Industries We Excel In" />
 
@@ -333,34 +368,36 @@ export default function ServicesPage() {
                     }}
                     setApi={setApi}
                     className="w-full"
+                    plugins={[autoplayPlugin.current]}
                 >
-                    <CarouselContent className="-ml-2 md:-ml-4 py-8">
+                    <CarouselContent className="-ml-2 sm:-ml-3 md:-ml-4 py-6 sm:py-8">
                         {INDUSTRIES.map((industry, index) => {
                             const IconComponent = industry.icon
 
                             return (
-                                <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+                                <CarouselItem key={index} className="pl-2 sm:pl-3 md:pl-4 basis-full sm:basis-1/2 md:basis-1/2 lg:basis-1/3">
                                     <div className="h-full">
                                         <Card className={cn(componentPresets.card.interactive, "h-full")}>
-                                            <CardContent className={cn(designTokens.spacing.card.padding, "flex flex-col h-full")}>
+                                            <CardContent className="p-4 sm:p-5 md:p-6 flex flex-col h-full">
                                                 <IconComponent
-                                                    className="w-10 h-10 mb-4"
+                                                    className="w-8 h-8 sm:w-10 sm:h-10 mb-3 sm:mb-4"
                                                     style={{ color: '#ed1651' }}
                                                     strokeWidth={1.5}
                                                 />
-                                                <h3 className={cn(designTokens.typography.h4, 'text-gray-900 mb-4')}>
+                                                <h3 className={cn(
+                                                    designTokens.typography.h4,
+                                                    'text-gray-900 mb-3 sm:mb-4',
+                                                    'text-base sm:text-lg md:text-xl'
+                                                )}>
                                                     {industry.title}
                                                 </h3>
-                                                <ul className="space-y-2 flex-grow">
+                                                <ul className="space-y-1.5 sm:space-y-2 flex-grow">
                                                     {industry.examples.map((example, idx) => (
                                                         <li
                                                             key={idx}
-                                                            className={cn(
-                                                                designTokens.typography.bodySmall,
-                                                                'text-gray-600 flex items-start gap-2'
-                                                            )}
+                                                            className="text-sm sm:text-base text-gray-600 flex items-start gap-2"
                                                         >
-                                                            <span className="mt-1" style={{ color: '#ed1651' }}>•</span>
+                                                            <span className="mt-1 text-pink-600">•</span>
                                                             <span>{example}</span>
                                                         </li>
                                                     ))}
@@ -374,17 +411,17 @@ export default function ServicesPage() {
                     </CarouselContent>
                 </Carousel>
 
-                {/* Indicators */}
-                <div className="flex justify-center gap-2 mt-6">
+                {/* Indicators - Optimized */}
+                <div className="flex justify-center gap-1.5 sm:gap-2 mt-4 sm:mt-6">
                     {INDUSTRIES.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => api?.scrollTo(index)}
                             className={cn(
-                                "h-2 rounded-full transition-all",
+                                "h-1.5 sm:h-2 rounded-full transition-all",
                                 current === index
-                                    ? "w-8 bg-[#ed1651]"
-                                    : "w-2 bg-gray-300 hover:bg-gray-400"
+                                    ? "w-6 sm:w-8 bg-[#ed1651]"
+                                    : "w-1.5 sm:w-2 bg-gray-300 hover:bg-gray-400"
                             )}
                             aria-label={`Go to slide ${index + 1}`}
                         />
@@ -392,28 +429,37 @@ export default function ServicesPage() {
                 </div>
             </Section>
 
-            {/* CTA Section */}
+            {/* CTA Section - Single CTA with Link */}
             <Section variant="hero" size="md">
-                <div className="text-center max-w-3xl mx-auto">
-                    <h2 className={cn(designTokens.typography.h2, 'text-gray-900 mb-6')}>
+                <div className="text-center max-w-3xl mx-auto px-4">
+                    <h2 className={cn(
+                        designTokens.typography.h2,
+                        'text-gray-900 mb-4 sm:mb-6',
+                        'text-xl sm:text-2xl md:text-3xl lg:text-4xl'
+                    )}>
                         Ready to Transform Your Financial Operations?
                     </h2>
-                    <p className={cn(designTokens.typography.lead, 'text-gray-700 mb-8')}>
+                    <p className={cn(
+                        designTokens.typography.lead,
+                        'text-gray-700 mb-6 sm:mb-8',
+                        'text-sm sm:text-base md:text-lg'
+                    )}>
                         Let's discuss which services are right for your business and create a customised solution that fits your needs and budget.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button className={componentPresets.button.primary}>
+                    <Link href="/contact">
+                        <Button className={cn(
+                            componentPresets.button.primary,
+                            'text-sm sm:text-base px-6 sm:px-8 bg-[#ed1651] cursor-pointer py-3 sm:py-4'
+                        )}>
                             Book Your Strategy Session
                         </Button>
-                        <Button className={componentPresets.button.outline}>
-                            Download Service Guide
-                        </Button>
-                    </div>
+                    </Link>
                 </div>
             </Section>
         </>
     );
 }
+
 const services = [
     {
         icon: BookOpen,
