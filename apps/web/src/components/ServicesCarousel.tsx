@@ -102,7 +102,7 @@ export default function ServicesCarousel() {
         {SERVICES.map((service, index) => (
           <CarouselItem
             key={service.id}
-            className="pl-4 basis-[80%] sm:basis-[60%] md:basis-[50%] lg:basis-[40%]"
+            className="pl-10 basis-[80%] sm:basis-[60%] md:basis-[50%] lg:basis-[35%]"
           >
             <Card
               className={cn(
@@ -115,7 +115,7 @@ export default function ServicesCarousel() {
             >
               <CardContent className={cn(
                 designTokens.spacing.card.padding,
-                'h-full flex flex-col'
+                'h-full flex flex-col px-8 md:px-10 lg:px-12'
               )}>
                 {/* Badge for Most Popular */}
                 {service.mostPopular && (
@@ -123,7 +123,7 @@ export default function ServicesCarousel() {
                     <span className={cn(
                       'inline-block',
                       'bg-linear-to-r from-[#ed1651] to-[#f96e93]',
-                      'text-white text-lg font-bold px-3 py-1',
+                      'text-white whitespace-nowrap font-bold px-3 py-1',
                       'rounded-full uppercase tracking-wide'
                     )}>
                       Most Popular
@@ -152,7 +152,7 @@ export default function ServicesCarousel() {
                 </div>
 
                 {/* Key Features */}
-                {/* <div className="flex-1">
+                <div className="flex-1">
                   <p className=" font-semibold text-gray-700 uppercase tracking-wide mb-4">
                     Key Features
                   </p>
@@ -179,7 +179,7 @@ export default function ServicesCarousel() {
                       </div>
                     ))}
                   </div>
-                </div> */}
+                </div>
               </CardContent>
             </Card>
           </CarouselItem>

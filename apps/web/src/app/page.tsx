@@ -19,7 +19,7 @@ import SectionHeader from '@/components/SectionHeader';
 import type { Metadata } from 'next';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '@/components/ui/carousel';
 import { useEffect, useState } from 'react';
-import { Check, X } from 'lucide-react';
+import { Check, CheckCircle, Clock, TrendingUp, Users, X } from 'lucide-react';
 
 // Dynamic imports for performance
 const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), {
@@ -29,75 +29,45 @@ const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), 
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'));
 
 
-const STATS = [
-  {
-    title: '98% Retention Since 2020',
-    description: 'Clients rave about our dedication (see their stories below).',
-    icon: image2,
-    alt: 'Client retention icon'
-  },
-  {
-    title: '98% Retention Since 2020',
-    description: 'Clients rave about our dedication (see their stories below).',
-    icon: icon1,
-    alt: 'Client retention icon'
-  },
+ const differentiators = [
+    {
+      stat: '98%',
+      label: 'Client Retention Since 2020',
+      description: 'Our clients stay because we deliver exceptional quality, accessibility, and genuine dedication to their success.'
+    },
+    {
+      stat: '15+',
+      label: 'Years of Financial Expertise',
+      description: 'Led by Pinky Bui, a qualified accountant with a Master of Professional Accounting.'
+    },
+    {
+      stat: '24/7',
+      label: 'Accessible When You Need Us',
+      description: 'Available during business hours, Saturdays by appointment, and accessible online after hours.'
+    }
+  ];
 
+const benefits = [
   {
-    title: '15+ Years Expertise',
-    description: 'Led by Pinky Bui (Master of Professional Accounting, MIPA), blending local SEQ knowledge with global standards.',
-    icon: icon2,
-    alt: 'Expertise icon'
-  },
-  {
-    title: 'Always Accessible',
-    description: 'Business hours, Saturday appointments, online after-hours—no more waiting for answers.',
-    icon: icon3,
-    alt: 'Accessibility icon'
-  },
-  {
-    title: 'Hybrid Team Power',
-    description: 'Australian professionals + offshore specialists for premium, cost-effective service.',
-    icon: icon4,
-    alt: 'Team power icon'
-  },
-  {
-    title: '98% Retention Since 2020',
-    description: 'Clients rave about our dedication (see their stories below).',
-    icon: image1,
-    alt: 'Client retention icon'
-  },
-];
-
-const VALUE_PROPOSITIONS = [
-  {
-    color: 'primary' as const,
-    img: "https://images.pexels.com/photos/11899617/pexels-photo-11899617.jpeg",
+    icon: Clock,
     title: 'Reclaim Your Time',
-    description: 'Outsource bookkeeping chaos to our experts, focus on scaling while we handle the details.',
-    alt: 'Time management illustration'
+    description: 'Outsource bookkeeping chaos to our experts, focus on scaling while we handle the details.'
   },
   {
-    color: 'pink' as const,
-    img: "https://images.pexels.com/photos/6694492/pexels-photo-6694492.jpeg",
+    icon: TrendingUp,
     title: 'Master Cashflow',
-    description: 'Real-time forecasts and optimisation ensure steady profitability, avoiding common pitfalls that sink 80% of growing firms.',
-    alt: 'Cashflow management illustration'
+    description: 'Real-time forecasts and optimisation ensure steady profitability, avoiding common pitfalls that sink 80% of growing firms.'
   },
   {
-    color: 'primary' as const,
-    img: "https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg",
+    icon: Users,
     title: 'Build Scalable Systems',
-    description: 'Custom infrastructure for $500K-$3M+ growth, from Xero setups to KPI dashboards.',
-    alt: 'Scalable systems illustration'
+    description: 'Custom infrastructure for $500K-$3M+ growth, from Xero setups to KPI dashboards.'
   },
   {
-    color: 'pink' as const,
-    img: "https://images.pexels.com/photos/6863176/pexels-photo-6863176.jpeg",
+    icon: CheckCircle,
     title: 'Tax-Optimised Compliance',
-    description: 'Stay compliant whilst minimising tax liability. Our registered tax agents ensure you\'re taking advantage of every legitimate opportunity to reduce your tax burden.',
-    alt: 'Tax compliance illustration'
-  },
+    description: 'Stay compliant whilst minimising tax liability. Our registered tax agents ensure you\'re taking advantage of every legitimate opportunity.'
+  }
 ];
 
 const WHO_WE_SERVE = [
@@ -205,47 +175,18 @@ export default function Home() {
       </Section>
 
 
-      <Section className='w-full bg-[#ed1651]!'>
-        <Carousel
-          opts={{
-            align: "start",
-            loop: false,
-            
-          }}
-          className="w-full "
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {STATS.map((stat, index) => (
-              <CarouselItem key={index} className="pl-2 md:pl-4 basis-auto">
-                <Card
-                  className={cn(
-                    componentPresets.card.base,
-                    'w-[250px] h-[250px]',
-                    'flex items-center justify-center',
-                    designTokens.transitions.base,
-                    'hover:-translate-y-1'
-                  )}
-                >
-                  <CardContent className="p-4 h-full flex flex-col  gap-3 items-center justify-center">
-                    <div className="h-20 grow flex items-center justify-center">
-                      <Image
-                        src={stat.icon}
-                        alt={stat.alt}
-                        className="h-20 w-full object-contain"
-                        width={64}
-                        height={64}
-                        loading="lazy"
-                      />
-                    </div>
-                    <h3 className={cn(designTokens.typography.h6, 'text-gray-900 h-16 text-center')}>
-                      {stat.title}
-                    </h3>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
+      <Section className='w-full bg-white!'>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {differentiators.map((item, index) => (
+              <div key={index} className="text-center">
+                <div className="text-5xl font-bold text-pink-600 mb-2">{item.stat}</div>
+                <div className="text-lg font-semibold text-gray-900 mb-2">{item.label}</div>
+                <p className="text-gray-600 text-sm">{item.description}</p>
+              </div>
             ))}
-          </CarouselContent>
-        </Carousel>
+          </div>
+        </div>
         {/* <div className="flex justify-center gap-2 mt-8">
           {STATS.map((_, index) => (
             <button
@@ -270,50 +211,23 @@ export default function Home() {
           description="Strategic financial management that scales with your business"
         />
 
-        <div className="space-y-8 md:space-y-12">
-          {VALUE_PROPOSITIONS.map((item, index) => (
-            <Card
-              key={index}
-              className={cn(
-                'overflow-hidden p-0 border-none',
-                designTokens.shadows.md
-              )}
-            >
-              <CardContent className="p-0">
-                <div className={cn(
-                  'grid md:grid-cols-2 gap-0 items-center',
-                  index % 2 === 1 && 'md:flex-row-reverse'
-                )}>
-                  <div className={cn(
-                    'relative h-64 md:h-full',
-                    index % 2 === 1 && 'md:order-2'
-                  )}>
-                    <Image
-                      src={item.img}
-                      alt={item.alt}
-                      fill
-                      className="object-cover aspect-video w-full"
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div className={cn(
-                    componentPresets.card.colored(item.color),
-                    'p-8 md:p-10 lg:p-12',
-                    'flex flex-col gap-4',
-                    index % 2 === 1 && ''
-                  )}>
-                    <h3 className={cn(designTokens.typography.h3, 'text-gray-900')}>
-                      {item.title}
-                    </h3>
-                    <p className={cn(designTokens.typography.body, 'text-gray-700')}>
-                      {item.description}
-                    </p>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {benefits.map((benefit, index) => {
+            const Icon = benefit.icon;
+            return (
+              <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+                  <Icon className="w-6 h-6 text-pink-600" />
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  {benefit.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {benefit.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </Section>
 
