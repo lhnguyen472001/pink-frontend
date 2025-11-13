@@ -237,68 +237,71 @@ export default function ServicesPage() {
 
             {/* Services Grid - Optimized */}
             <section className="py-12 sm:py-16 md:py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="space-y-12 sm:space-y-14 md:space-y-16">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="space-y-12">
                         {services.map((service, index) => {
                             const Icon = service.icon;
                             return (
-                                <div
-                                    key={index}
-                                    className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center"
-                                >
-                                    <div className='flex h-full flex-col justify-between'>
-                                        <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                            <div className="w-12 h-12 sm:w-14 sm:h-14 bg-pink-100 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
-                                                <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-[#ed1651]" />
+                                <>
+                                    <div
+                                        key={index}
+                                        className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center"
+                                    >
+                                        <div className='flex h-full flex-col justify-between'>
+                                            <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-pink-100 rounded-lg sm:rounded-xl flex items-center justify-center shrink-0">
+                                                    <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-[#ed1651]" />
+                                                </div>
+                                                <div>
+                                                    <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
+                                                        {service.title}
+                                                    </h2>
+                                                    <p className="text-[#ed1651] font-semibold mt-1 text-sm sm:text-base">
+                                                        {service.subtitle}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
-                                                    {service.title}
-                                                </h2>
-                                                <p className="text-[#ed1651] font-semibold mt-1 text-sm sm:text-base">
-                                                    {service.subtitle}
-                                                </p>
+                                            <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6">
+                                                {service.description}
+                                            </p>
+                                            <div className="bg-slate-50 p-4 sm:p-6 rounded-lg sm:rounded-xl">
+                                                <p className="text-xs sm:text-sm font-semibold text-gray-900 mb-2">Investment:</p>
+                                                <p className="text-sm sm:text-base text-gray-700">{service.investment}</p>
                                             </div>
                                         </div>
-                                        <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-4 sm:mb-6">
-                                            {service.description}
-                                        </p>
-                                        <div className="bg-slate-50 p-4 sm:p-6 rounded-lg sm:rounded-xl">
-                                            <p className="text-xs sm:text-sm font-semibold text-gray-900 mb-2">Investment:</p>
-                                            <p className="text-sm sm:text-base text-gray-700">{service.investment}</p>
-                                        </div>
-                                    </div>
 
-                                    <div className="bg-white border-2 border-gray-200 rounded-lg sm:rounded-xl p-5 sm:p-6 md:p-8">
-                                        <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">
-                                            What We Handle:
-                                        </h3>
-                                        <ul className="space-y-3 sm:space-y-4">
-                                            {service.features.map((feature, idx) => (
-                                                <li key={idx} className="flex items-start gap-2 sm:gap-3">
-                                                    <div className="w-5 h-5 sm:w-6 sm:h-6 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                                                        <svg
-                                                            className="w-3 h-3 sm:w-4 sm:h-4 text-[#ed1651]"
-                                                            fill="none"
-                                                            viewBox="0 0 24 24"
-                                                            stroke="currentColor"
-                                                        >
-                                                            <path
-                                                                strokeLinecap="round"
-                                                                strokeLinejoin="round"
-                                                                strokeWidth={2}
-                                                                d="M5 13l4 4L19 7"
-                                                            />
-                                                        </svg>
-                                                    </div>
-                                                    <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                                                        {feature}
-                                                    </span>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        <div className="bg-white border-2 border-gray-200 rounded-lg sm:rounded-xl p-5 sm:p-6 md:p-8">
+                                            <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">
+                                                What We Handle:
+                                            </h3>
+                                            <ul className="space-y-3 sm:space-y-4">
+                                                {service.features.map((feature, idx) => (
+                                                    <li key={idx} className="flex items-start gap-2 sm:gap-3">
+                                                        <div className="w-5 h-5 sm:w-6 sm:h-6 bg-pink-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                            <svg
+                                                                className="w-3 h-3 sm:w-4 sm:h-4 text-[#ed1651]"
+                                                                fill="none"
+                                                                viewBox="0 0 24 24"
+                                                                stroke="currentColor"
+                                                            >
+                                                                <path
+                                                                    strokeLinecap="round"
+                                                                    strokeLinejoin="round"
+                                                                    strokeWidth={2}
+                                                                    d="M5 13l4 4L19 7"
+                                                                />
+                                                            </svg>
+                                                        </div>
+                                                        <span className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                                                            {feature}
+                                                        </span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
+                                    { index !== (services.length - 1) && <hr className='border-b-2 max-md:hidden border-b-gray-400'/>}
+                                </>
                             );
                         })}
                     </div>
