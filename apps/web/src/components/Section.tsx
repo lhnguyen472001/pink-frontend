@@ -16,7 +16,7 @@ const variants = {
   primary: 'bg-accent-lightPink',
   secondary: 'bg-secondary-100',
   neutral: 'bg-gray-50',
-  hero: designTokens.gradients.hero,
+  hero: designTokens.gradients.primary,
 };
 
 const sizes = {

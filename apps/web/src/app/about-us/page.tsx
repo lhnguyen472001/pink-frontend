@@ -6,7 +6,7 @@ import { SectionHeader } from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, designTokens, componentPresets } from '@/lib/design-tokens';
-import type { Metadata } from 'next';
+
 
 
 // Leadership team data
@@ -202,7 +202,7 @@ export default function AboutUsPage() {
           <h3 className={cn(designTokens.typography.h3, 'text-center mb-8')}>
             Three Core Pillars of Value
           </h3>
-          
+
           {MISSION_PILLARS.map((pillar, index) => (
             <Card
               key={index}
@@ -229,7 +229,7 @@ export default function AboutUsPage() {
                       {pillar.icon}
                     </div>
                   </div>
-                  
+
                   <div className={cn(
                     'p-8 bg-white',
                     index === 1 && 'md:col-start-1'
@@ -251,7 +251,7 @@ export default function AboutUsPage() {
       {/* Leadership Team */}
       <Section variant="neutral">
         <SectionHeader title="Leadership Team" />
-        
+
         <div className="space-y-8">
           {LEADERSHIP.map((member, index) => (
             <Card
@@ -276,7 +276,7 @@ export default function AboutUsPage() {
                       index % 2 === 1 && 'md:col-start-2'
                     )}
                   >
-                    <div className="w-32 h-32 rounded-full bg-linear-to-br from-primary-400 to-primary-500 flex items-center justify-center text-white text-5xl font-bold mb-4 shadow-lg">
+                    <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary-400 to-primary-500 flex items-center justify-center text-white text-5xl font-bold mb-4 shadow-lg">
                       {member.initial}
                     </div>
                     <h3 className={cn(designTokens.typography.h3, 'text-gray-900 mb-2')}>
@@ -342,7 +342,7 @@ export default function AboutUsPage() {
       {/* Extended Team */}
       <Section>
         <SectionHeader title="Our Extended Team" />
-        
+
         <div className={cn(designTokens.grid.cols2, designTokens.spacing.gap.md)}>
           {EXTENDED_TEAM.map((member, index) => (
             <Card
@@ -389,7 +389,7 @@ export default function AboutUsPage() {
       {/* Values */}
       <Section variant="secondary">
         <SectionHeader title="Our Values" />
-        
+
         <div className={cn(designTokens.grid.cols3, designTokens.spacing.gap.md)}>
           {VALUES.map((value, index) => (
             <Card

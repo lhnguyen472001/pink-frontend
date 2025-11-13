@@ -61,28 +61,28 @@ const STATS = [
 const VALUE_PROPOSITIONS = [
   {
     color: 'primary' as const,
-    img: imgDefault,
+    img: "https://images.pexels.com/photos/11899617/pexels-photo-11899617.jpeg",
     title: 'Reclaim Your Time',
     description: 'Outsource bookkeeping chaos to our experts, focus on scaling while we handle the details.',
     alt: 'Time management illustration'
   },
   {
     color: 'secondary' as const,
-    img: imgDefault,
+    img: "https://images.pexels.com/photos/6694492/pexels-photo-6694492.jpeg",
     title: 'Master Cashflow',
     description: 'Real-time forecasts and optimisation ensure steady profitability, avoiding common pitfalls that sink 80% of growing firms.',
     alt: 'Cashflow management illustration'
   },
   {
     color: 'primary' as const,
-    img: imgDefault,
+    img: "https://images.pexels.com/photos/577210/pexels-photo-577210.jpeg",
     title: 'Build Scalable Systems',
     description: 'Custom infrastructure for $500K-$3M+ growth, from Xero setups to KPI dashboards.',
     alt: 'Scalable systems illustration'
   },
   {
     color: 'secondary' as const,
-    img: imgDefault,
+    img: "https://images.pexels.com/photos/6863176/pexels-photo-6863176.jpeg",
     title: 'Tax-Optimised Compliance',
     description: 'Stay compliant whilst minimising tax liability. Our registered tax agents ensure you\'re taking advantage of every legitimate opportunity to reduce your tax burden.',
     alt: 'Tax compliance illustration'
@@ -91,35 +91,42 @@ const VALUE_PROPOSITIONS = [
 
 const WHO_WE_SERVE = [
   {
-    title: 'Professional Services (Consultants, Agencies)',
-    description: 'We moved to the Growth package, and the numbers speak for themselves. Thanks to the monthly management reports, our gross profit per client is up 15% in six months.',
+    title: 'Professional Services',
+    description: 'Consultants, advisers, agencies, and service providers who need their financial operations to run seamlessly whilst they focus on client delivery.',
   },
   {
-    title: 'Trade & Construction (Builders, Trades)',
-    description: 'Managing cash flow across multiple sites was killing our growth. Pink\'s Scale package, especially the weekly cashflow oversight, helped us tighten our accounts payable cycle from 45 days to just 30 days.',
+    title: 'Trade & Construction',
+    description: 'Builders, contractors, and trades businesses managing multiple projects, cashflow cycles, and growing teams.',
   },
   {
-    title: 'Healthcare & Wellness (Medical Practices, Allied Health)',
-    description: 'As a growing dental practice, we needed flawless compliance and a clear path for expansion. The Foundation package ensures we are 100% tax compliant.',
+    title: 'Healthcare & Wellness',
+    description: 'Medical practices, allied health, and wellness businesses requiring meticulous compliance and strategic growth support.',
   },
   {
-    title: 'Technology & Creative Services (Tech Startups, Digital Agencies)',
-    description: 'Scaling from $500K to $1M turnover meant our systems needed an overhaul. Pink not only restructured our Chart of Accounts but also perfectly integrated our Xero setup.',
+    title: 'Technology & Creative Services',
+    description: 'Tech startups, digital agencies, and creative businesses scaling rapidly and needing financial systems that keep pace.',
+  },
+  {
+    title: 'Business Services',
+    description: 'Professional service businesses including recruitment, training, property management, and other B2B service providers.',
   },
 ];
 
 const TESTIMONIALS = [
   {
+    avatar: "https://images.pexels.com/photos/13736439/pexels-photo-13736439.jpeg",
     quote: 'Pink Accounting transformed our financial chaos into clarity. Within six months, we improved our cashflow by 40% and finally understood our numbers. Pinky and her team are worth every dollar.',
     author: 'Amy M.',
     position: 'Cafe Business Owner, Brisbane',
   },
   {
+    avatar: "https://images.pexels.com/photos/6888761/pexels-photo-6888761.jpeg ",
     quote: 'As we scaled from $800K to $2.1M, Pink Accounting scaled with us. They didn\'t just keep up, they anticipated our needs and proactively solved problems before they became issues.',
     author: 'Phillip P.',
     position: 'Business Operator, Northside Brisbane',
   },
   {
+    avatar: "https://images.pexels.com/photos/11899617/pexels-photo-11899617.jpeg",
     quote: 'The responsiveness is incredible. I can email at 9 PM and know I\'ll get a thoughtful reply the next morning. It\'s like having an in-house financial team without the overhead.',
     author: 'Andy T.',
     position: 'Professional Services, Brisbane',
@@ -149,7 +156,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button className={componentPresets.button.primary}>
+                <Button className={cn(componentPresets.button.primary, 'bg-[#ed1651]')}>
                   <span className="flex flex-col items-start">
                     <span>Book Your Strategy Session</span>
                     <span className="font-normal text-sm">Download Financial Health Checklist</span>
@@ -173,9 +180,30 @@ export default function Home() {
           </div>
         </div>
       </Section>
-      <div className='flex items-center justify-center'>
-        <Image src={image2} alt='image' className=' object-contain aspect-video' width={400} height={300} />
-        <Image src={image1} alt='image' className='aspect-video object-contain' width={400} height={400} />
+      <div className='flex bg-[#ed1651] h-[300px] py-4 items-center justify-center gap-6'>
+        {/* Image 1 */}
+        <div className='bg-white p-4 rounded-tl-[120px] rounded-br-[120px] shadow-lg transition-transform duration-300 hover:scale-105'>
+          <Image
+            src={image2}
+            alt='Professional accounting services Brisbane'
+            className='object-contain rounded-tl-[120px] rounded-br-[120px] aspect-video'
+            width={400}
+            height={300}
+            loading="lazy"
+          />
+        </div>
+
+        {/* Image 2 */}
+        <div className='bg-white p-4 rounded-tl-[120px] rounded-br-[120px] shadow-lg transition-transform duration-300 hover:scale-105'>
+          <Image
+            src={image1}
+            alt='Financial management solutions Queensland'
+            className='object-contain aspect-video'
+            width={400}
+            height={300}
+            loading="lazy"
+          />
+        </div>
       </div>
       {/* Stats Section */}
       <Section>
@@ -330,13 +358,13 @@ export default function Home() {
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center mb-12">
           <Card className={cn(
-            'bg-gradient-to-br from-secondary-50 to-secondary-100',
+            'bg-linear-to-br from-secondary-50 to-secondary-100',
             'border-none',
             designTokens.shadows.lg,
             designTokens.spacing.card.paddingLg
           )}>
             <CardContent className="p-0 text-center">
-              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-cyan-400 to-teal-400 rounded-full flex items-center justify-center mb-6">
+              <div className="w-32 h-32 mx-auto bg-linear-to-br from-cyan-400 to-teal-400 rounded-full flex items-center justify-center mb-6">
                 <span className="text-6xl" role="img" aria-label="Pink flower">🌸</span>
               </div>
               <div className="text-6xl font-bold text-cyan-600 mb-2">2020</div>

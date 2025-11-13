@@ -1,42 +1,26 @@
 // lib/design-tokens.ts
 /**
  * Centralized Design System Tokens
- * Use these throughout the application for consistency
+ * Primary color: #ed1651 (Pink Red)
+ * Supporting colors: White (#ffffff), Black (#000000)
  */
 
 export const designTokens = {
   // Color Palette
   colors: {
     primary: {
-      50: "#fff5f7",
-      100: "#ffe8ec",
-      200: "#ffd1d8",
-      300: "#ffc4ca",
-      400: "#ffa9b1",
-      500: "#ff8a95",
-      600: "#ff6b7a",
-      700: "#ff4d60",
-      800: "#e63946",
-      900: "#cc2936",
+      50: "#fef2f5",
+      100: "#fce4ea",
+      200: "#fac9d5",
+      300: "#f7aec0",
+      400: "#f282a0",
+      500: "#ed1651", // Main brand color
+      600: "#d41348",
+      700: "#bb113f",
+      800: "#9b0e34",
+      900: "#7c0b2a",
     },
     secondary: {
-      50: "#f0f9f9",
-      100: "#def1f1",
-      200: "#c5e5e5",
-      300: "#b8e4e4",
-      400: "#9dd9d9",
-      500: "#7fcfcf",
-      600: "#5eb8b8",
-      700: "#4a9999",
-      800: "#3a7a7a",
-      900: "#2d5f5f",
-    },
-    accent: {
-      cream: "#fef3e1",
-      lightPink: "#fbe7e7",
-      softGray: "#eaeaea",
-    },
-    neutral: {
       50: "#fafafa",
       100: "#f5f5f5",
       200: "#e5e5e5",
@@ -47,6 +31,11 @@ export const designTokens = {
       700: "#404040",
       800: "#262626",
       900: "#171717",
+    },
+    accent: {
+      lightPink: "#fef2f5",
+      softGray: "#f5f5f5",
+      darkGray: "#1a1a1a",
     },
   },
 
@@ -112,11 +101,10 @@ export const designTokens = {
 
   // Gradients
   gradients: {
-    primary: "bg-gradient-to-br from-pink-400 to-pink-500",
-    primaryLight: "bg-gradient-to-br from-pink-200 to-pink-300",
-    secondary: "bg-gradient-to-br from-cyan-400 to-teal-400",
-    secondaryLight: "bg-gradient-to-br from-secondary-100 to-secondary-200",
-    hero: "bg-gradient-to-br from-pink-300 via-pink-200 to-pink-100",
+    primary: "bg-gradient-to-br from-primary-500 to-primary-600",
+    primaryLight: "bg-gradient-to-br from-primary-50 to-primary-100",
+    primarySubtle: "bg-gradient-to-br from-white via-primary-50 to-primary-100",
+    dark: "bg-gradient-to-br from-gray-900 to-gray-800",
     subtle: "bg-gradient-to-br from-gray-50 to-white",
   },
 
@@ -162,19 +150,19 @@ export function cn(...classes: (string | boolean | undefined | null)[]) {
 export const componentPresets = {
   button: {
     primary: cn(
-      "bg-primary-400 hover:bg-primary-300 text-gray-900",
+      "bg-primary-500 hover:bg-primary-600 text-white",
       "text-base h-14 font-semibold px-8",
       designTokens.rounded.md,
       designTokens.transitions.base
     ),
     secondary: cn(
-      "bg-secondary-100 hover:bg-secondary-200 text-gray-900",
+      "bg-gray-900 hover:bg-gray-800 text-white",
       "text-base h-14 font-semibold px-8",
       designTokens.rounded.md,
       designTokens.transitions.base
     ),
     outline: cn(
-      "bg-white hover:bg-gray-50 border-2 border-current",
+      "bg-white hover:bg-gray-50 border-2 border-primary-500 text-primary-500 hover:border-primary-600 hover:text-primary-600",
       "text-base h-14 font-semibold px-8",
       designTokens.rounded.md,
       designTokens.transitions.base
@@ -186,21 +174,21 @@ export const componentPresets = {
       "bg-white",
       designTokens.rounded.lg,
       designTokens.shadows.md,
-      "border border-gray-100"
+      "border border-gray-200"
     ),
     interactive: cn(
       "bg-white",
       designTokens.rounded.lg,
       designTokens.shadows.md,
-      "border border-gray-100",
+      "border border-gray-200",
       "hover:-translate-y-1",
       designTokens.transitions.base
     ),
     colored: (color: "primary" | "secondary" | "accent") => {
       const colorMap = {
-        primary: "bg-accent-lightPink",
-        secondary: "bg-secondary-100",
-        accent: "bg-accent-cream",
+        primary: "bg-primary-50",
+        secondary: "bg-gray-100",
+        accent: "bg-accent-lightPink",
       };
       return cn(colorMap[color], designTokens.rounded.lg, "border-none");
     },
@@ -208,11 +196,11 @@ export const componentPresets = {
 
   section: {
     base: cn(designTokens.spacing.section.md),
-    hero: cn(designTokens.spacing.section.lg, designTokens.gradients.hero),
+    hero: cn(designTokens.spacing.section.lg, designTokens.gradients.primarySubtle),
     colored: (color: "primary" | "secondary" | "neutral") => {
       const colorMap = {
-        primary: "bg-accent-lightPink",
-        secondary: "bg-secondary-100",
+        primary: "bg-primary-50",
+        secondary: "bg-gray-900",
         neutral: "bg-gray-50",
       };
       return cn(designTokens.spacing.section.md, colorMap[color]);
@@ -221,11 +209,11 @@ export const componentPresets = {
 
   badge: {
     primary:
-      "bg-gradient-to-r from-primary-400 to-primary-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold",
+      "bg-primary-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold",
     secondary:
-      "bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold",
+      "bg-gray-900 text-white px-4 py-1.5 rounded-full text-sm font-semibold",
     outline:
-      "border-2 border-current px-4 py-1.5 rounded-full text-sm font-semibold",
+      "border-2 border-primary-500 text-primary-500 px-4 py-1.5 rounded-full text-sm font-semibold",
   },
 
   icon: {
