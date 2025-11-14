@@ -17,6 +17,7 @@ import { Check, X } from 'lucide-react';
 import Link from 'next/link';
 import img1 from "@public/home/img1.jpeg"
 import img2 from "@public/home/img2.jpeg"
+import img4 from "@public/home/img4.jpeg"
 import img3 from "@public/home/img3.jpeg"
 
 // Lazy load icons để giảm initial bundle
@@ -27,7 +28,7 @@ const CheckCircle = dynamic(() => import('lucide-react').then(mod => ({ default:
 
 const ServicesCarousel = dynamic(() => import('@/components/ServicesCarousel'), {
   loading: () => <div className="h-96 animate-pulse bg-gray-100 rounded-lg" />,
-  ssr: false 
+  ssr: false
 });
 
 const TestimonialsSection = dynamic(() => import('@/components/TestimonialsSection'), {
@@ -133,42 +134,35 @@ const benefits = [
 
 const WHO_WE_SERVE = [
   {
-    title: 'Professional Services',
-    description: 'Consultants, advisers, agencies, and service providers who need their financial operations to run seamlessly whilst they focus on client delivery.',
+    title: 'Real Estate Agents and Rent Roll Growing Firm',
+    description: 'Real estate agencies, property managers, and firms looking to expand their Rent Roll, who require absolute accuracy in compliance and detailed analysis of investment performance.',
   },
   {
-    title: 'Trade & Construction',
-    description: 'Builders, contractors, and trades businesses managing multiple projects, cashflow cycles, and growing teams.',
+    title: 'Construction and Trade',
+    description: 'Builders, contractors, and trades businesses managing multiple projects, optimizing complex cash flow cycles, and controlling costs for their growing teams.',
   },
   {
-    title: 'Healthcare & Wellness',
-    description: 'Medical practices, allied health, and wellness businesses requiring meticulous compliance and strategic growth support.',
+    title: 'Other Professional Services',
+    description: 'Consultants, advisors, agencies, and other professional service providers who need their financial operations to run seamlessly so they can focus on client delivery.',
   },
-  {
-    title: 'Technology & Creative Services',
-    description: 'Tech startups, digital agencies, and creative businesses scaling rapidly and needing financial systems that keep pace.',
-  },
-  {
-    title: 'Business Services',
-    description: 'Professional service businesses including recruitment, training, property management, and other B2B service providers.',
-  },
+
 ];
 
 const TESTIMONIALS = [
   {
-    avatar: img1,
+    avatar: img3,
     quote: 'Pink Accounting transformed our financial chaos into clarity. Within six months, we improved our cashflow by 40% and finally understood our numbers. Pinky and her team are worth every dollar.',
     author: 'Amy M.',
     position: 'Cafe Business Owner, Brisbane',
   },
   {
-    avatar: img2,
+    avatar: img1,
     quote: 'As we scaled from $800K to $2.1M, Pink Accounting scaled with us. They didn\'t just keep up, they anticipated our needs and proactively solved problems before they became issues.',
     author: 'Phillip P.',
     position: 'Business Operator, Northside Brisbane',
   },
   {
-    avatar: img3,
+    avatar: img4,
     quote: 'The responsiveness is incredible. I can email at 9 PM and know I\'ll get a thoughtful reply the next morning. It\'s like having an in-house financial team without the overhead.',
     author: 'Andy T.',
     position: 'Professional Services, Brisbane',
@@ -274,7 +268,7 @@ export default function Home() {
             quality={75}
             placeholder="blur"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70" />
+          <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/60 to-black/70" />
         </div>
       </Section>
 
@@ -338,7 +332,7 @@ export default function Home() {
       <Section variant="neutral">
         <SectionHeader title="Who We Serve Best" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 md:gap-8">
           {WHO_WE_SERVE.map((item, index) => (
             <Card
               key={index}

@@ -31,10 +31,7 @@ const Header = (props: Props) => {
             <div className='h-20 justify-between flex items-center gap-3 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8'>
                 <Link href={"/"} className="flex justify-between items-center">
                     <Image src={logo} alt='logo' width={500} height={500} className='w-20 aspect-auto' />
-                    <div className="ml-3">
-                        <h1 className="text-lg font-bold text-gray-900 leading-tight">Pink Accounting</h1>
-                        <p className="text-xs text-gray-600">& Tax Solutions</p>
-                    </div>
+                    
                 </Link>
 
                 {/* Desktop Menu */}

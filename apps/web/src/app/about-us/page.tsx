@@ -49,7 +49,7 @@ const LEADERSHIP = [
     ],
     approach: 'Jessica brings deep taxation expertise to our practice, ensuring clients are always compliant whilst taking advantage of every legitimate tax optimisation opportunity.',
     color: 'pink' as const,
-    img: imgCeo
+    img: "J"
   },
   {
     name: 'Miftas Sriyan',
@@ -62,7 +62,7 @@ const LEADERSHIP = [
     ],
     approach: 'Miftas brings extensive commercial accounting expertise to our practice, excelling in financial reporting, identifying accounting discrepancies, and solving complex accounting problems. His analytical approach and depth of experience make him invaluable for clients with intricate financial structures or challenging accounting issues.',
     color: 'primary' as const,
-    img: imgCeo
+    img: "M"
   }
 ];
 
@@ -72,28 +72,28 @@ const EXTENDED_TEAM = [
     role: 'Senior Bookkeeper',
     email: 'regs@pinktax.com.au',
     description: 'Leading our bookkeeping operations with precision and consistency',
-    img: imgCeo
+    img: "R"
   },
   {
     name: 'Nazel Rose',
     role: 'Intermediate Bookkeeper',
     email: 'nazel@pinktax.com.au',
     description: 'Supporting day-to-day bookkeeping and reconciliation tasks',
-    img: imgCeo
+    img: "N"
   },
   {
     name: 'Daisy Nguyen',
     role: 'Bookkeeper',
     email: 'daisy@pinktax.com.au',
     description: 'Specialising in transaction processing and account management',
-    img: imgCeo
+    img: "D"
   },
   {
     name: 'Bonnie Gloriane',
     role: 'Senior Admin',
     email: 'bonnie@pinktax.com.au',
     description: 'Managing client communications and operational coordination',
-    img: imgCeo
+    img: "B"
   }
 ];
 
@@ -325,14 +325,18 @@ export default function AboutUsPage() {
                       index % 2 === 1 && 'md:col-start-2'
                     )}
                   >
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden mb-4 sm:mb-6 shadow-lg">
-                      <Image
-                        src={member.img}
-                        alt="Pink Accounting founding story"
-                        width={128}
-                        height={128}
-                        className="w-full h-full object-cover"
-                      />
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 bg-[#ed1651] md:w-32 md:h-32 mx-auto rounded-full overflow-hidden mb-4 sm:mb-6 shadow-lg">
+                      {typeof member.img === 'string' ? (
+                        <div className='flex items-center w-full h-full text-white text-3xl sm:text-5xl font-bold  justify-center'>{member.img}</div>
+                      ) : (
+                        <Image
+                          src={member.img}
+                          alt="Pink Accounting founding story"
+                          width={128}
+                          height={128}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
                     </div>
                     <h3 className={cn(
                       designTokens.typography.h3,
@@ -422,15 +426,9 @@ export default function AboutUsPage() {
               )}
             >
               <CardContent className="p-4 sm:p-5 md:p-6">
-                <div className="flex gap-3 sm:gap-4 items-start">
-                  <div className="w-12 h-12 sm:w-28 sm:h-28 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden mb-4 sm:mb-6 shadow-lg">
-                    <Image
-                      src={member.img}
-                      alt="Pink Accounting founding story"
-                      width={128}
-                      height={128}
-                      className="w-full h-full object-cover"
-                    />
+                <div className="flex gap-4 items-start">
+                  <div className="w-12 h-12 sm:w-20 sm:h-20 sm:text-4xl text-2xl rounded-full bg-[#ed1651] flex items-center justify-center text-white font-bold shrink-0 shadow-md">
+                    {member.img}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h3 className={cn(

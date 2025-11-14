@@ -22,14 +22,7 @@ function Footer({ }: Props) {
                                 height={80}
                                 className='w-16 sm:w-20 aspect-auto'
                             />
-                            <div className="ml-2 sm:ml-3">
-                                <h2 className="text-base sm:text-lg font-bold text-gray-900 leading-tight">
-                                    Pink Accounting
-                                </h2>
-                                <p className="text-[10px] sm:text-xs text-gray-600">
-                                    & Tax Solutions
-                                </p>
-                            </div>
+                            
                         </Link>
                         <p className='text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 leading-relaxed'>
                             Your trusted Brisbane-based accounting partner helping South-East Queensland businesses thrive and scale with confidence.

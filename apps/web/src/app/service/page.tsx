@@ -6,7 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn, designTokens, componentPresets } from '@/lib/design-tokens';
 import {
-    BookOpen, Briefcase, Lightbulb, Settings, Shield, TrendingUp, Hammer, Heart, Laptop, Target
+    BookOpen, Briefcase, Lightbulb, Settings, Shield, TrendingUp, Hammer, Heart, Laptop, Target,
+    HardHat,
+    BriefcaseBusiness,
+    Building2
 } from 'lucide-react';
 import Autoplay from 'embla-carousel-autoplay';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
@@ -127,29 +130,35 @@ const SERVICES = [
 
 const INDUSTRIES = [
     {
-        title: "Professional Services",
-        examples: ["Legal practices", "Accounting firms", "Consulting", "Engineering", "Marketing agencies", "Real estate"],
-        icon: Briefcase
+        title: "Real Estate & Property",
+        examples: [
+            "Residential Real Estate Agencies",
+            "Property Management and Rent Roll Development",
+            "Property Investment and Development",
+            "Real Estate-adjacent service businesses"
+        ],
+        icon: Building2
     },
     {
-        title: "Trade & Construction",
-        examples: ["Building contractors", "Electrical services", "Plumbing", "HVAC", "Landscaping", "Project management"],
-        icon: Hammer
+        title: "Construction & Trade Services",
+        examples: [
+            "Building and Renovation Contractors",
+            "Electrical, Plumbing, and HVAC Services",
+            "Landscaping and Maintenance Services",
+            "Project Management and specialized trade contractors"
+        ],
+        icon: HardHat
     },
     {
-        title: "Healthcare & Wellness",
-        examples: ["Medical practices", "Dental clinics", "Allied health", "Aged care", "Fitness", "Beauty services"],
-        icon: Heart
-    },
-    {
-        title: "Technology & Creative",
-        examples: ["Software development", "IT services", "Web design", "Digital agencies", "Content creation", "Media production"],
-        icon: Laptop
-    },
-    {
-        title: "Business Services",
-        examples: ["HR & recruitment", "Training providers", "Property management", "Cleaning services", "Business coaching"],
-        icon: Target
+        title: "Other Professional Services",
+        examples: [
+            "Consulting and Strategy Firms",
+            "Marketing and Digital Agencies",
+            "Allied Health and Medical Services (e.g., Physiotherapy, Psychology)",
+            "Technology and Software Development",
+            "Recruitment and Training Services"
+        ],
+        icon: BriefcaseBusiness
     }
 ];
 
@@ -391,13 +400,13 @@ export default function ServicesPage() {
                                                 )}>
                                                     {industry.title}
                                                 </h3>
-                                                <ul className="space-y-1.5 sm:space-y-2 flex-grow">
+                                                <ul className="space-y-1.5 sm:space-y-2 grow">
                                                     {industry.examples.map((example, idx) => (
                                                         <li
                                                             key={idx}
                                                             className="text-sm sm:text-base text-gray-600 flex items-start gap-2"
                                                         >
-                                                            <span className="mt-1 text-[#ed1651]">•</span>
+                                                            <span className=" text-[#ed1651]">•</span>
                                                             <span>{example}</span>
                                                         </li>
                                                     ))}
